@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Compliance Audit</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   THEME SYSTEM
+══════════════════════════════════════ */
+:root {
+  --bg:#0b0f1e; --surface:#111827; --surface2:#1a2236; --surface3:#212d45;
+  --border:#263352; --border2:#1e2a44;
+  --accent:#6366f1; --accent2:#818cf8; --accent-glow:rgba(99,102,241,0.25);
+  --green:#22c55e; --red:#ef4444; --yellow:#f59e0b;
+  --text:#e2e8f8; --text2:#8b94b8; --text3:#4a5280;
+  --shadow:0 8px 32px rgba(0,0,0,0.5);
+  --radius:14px; --radius-sm:8px;
+  --topbar-h:60px;
+}
+.t-cyber{--bg:#000a0f;--surface:#001219;--surface2:#011f2e;--surface3:#032840;--border:#0a4060;--border2:#063050;--accent:#00fff5;--accent2:#00d4cc;--accent-glow:rgba(0,255,245,0.2);--text:#b0fff8;--text2:#3a9e96;--text3:#1a5550}
+.t-matrix{--bg:#000500;--surface:#010e01;--surface2:#021502;--surface3:#031e03;--border:#0a4010;--border2:#062808;--accent:#00ff41;--accent2:#00cc33;--accent-glow:rgba(0,255,65,0.2);--text:#a0ffb0;--text2:#3a8040;--text3:#1a4020}
+.t-hologram{--bg:#040818;--surface:#080f28;--surface2:#0c1535;--surface3:#101c44;--border:#1a2a6e;--border2:#121e55;--accent:#7b2fff;--accent2:#a855f7;--accent-glow:rgba(123,47,255,0.3);--text:#d8c8ff;--text2:#7055a8;--text3:#3a2a70}
+.t-fire{--bg:#0f0500;--surface:#1a0800;--surface2:#220c00;--surface3:#2e1000;--border:#5c1a00;--border2:#401200;--accent:#ff6b00;--accent2:#ff9500;--accent-glow:rgba(255,107,0,0.25);--text:#ffd8b0;--text2:#a05530;--text3:#552808}
+.t-arctic{--bg:#010d18;--surface:#011525;--surface2:#021e35;--surface3:#032845;--border:#0a3a60;--border2:#062848;--accent:#38bdf8;--accent2:#7dd3fc;--accent-glow:rgba(56,189,248,0.2);--text:#cceeff;--text2:#4490b8;--text3:#1a5070}
+.t-rose{--bg:#120008;--surface:#1e0010;--surface2:#280016;--surface3:#340020;--border:#600040;--border2:#440030;--accent:#ff2d78;--accent2:#ff6ea0;--accent-glow:rgba(255,45,120,0.25);--text:#ffc0d8;--text2:#a04068;--text3:#601840}
+.t-gold{--bg:#0d0900;--surface:#181200;--surface2:#221a00;--surface3:#2e2400;--border:#604800;--border2:#443400;--accent:#fbbf24;--accent2:#fde68a;--accent-glow:rgba(251,191,36,0.25);--text:#fff3c0;--text2:#a08830;--text3:#604e00}
+.t-light{--bg:#f0f4ff;--surface:#ffffff;--surface2:#f4f6ff;--surface3:#eceffe;--border:#d8ddf5;--border2:#e5e8f8;--accent:#6366f1;--accent2:#818cf8;--accent-glow:rgba(99,102,241,0.15);--text:#1a1d35;--text2:#5a60a0;--text3:#9ca0c8;--shadow:0 4px 20px rgba(0,0,0,0.1)}
+.t-neon{--bg:#080012;--surface:#0f0020;--surface2:#180030;--surface3:#200040;--border:#3d006e;--border2:#2a004e;--accent:#e040fb;--accent2:#ce93d8;--accent-glow:rgba(224,64,251,0.3);--text:#f5e0ff;--text2:#9a60b0;--text3:#4a1870}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg); color:var(--text);
+  min-height:100vh; transition:background 0.4s,color 0.3s;
+}
+body::before{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:linear-gradient(var(--border2) 1px,transparent 1px),linear-gradient(90deg,var(--border2) 1px,transparent 1px);
+  background-size:48px 48px; opacity:0.3;
+}
+body::after{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(ellipse 60% 40% at 50% 0%,var(--accent-glow),transparent 70%);
+}
+
+/* ── TOPBAR ── */
+.topbar{
+  position:sticky; top:0; z-index:200;
+  height:var(--topbar-h);
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:0 20px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 var(--border),0 4px 24px rgba(0,0,0,0.4);
+}
+.topbar-left{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{width:34px;height:34px;border-radius:8px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 0 6px var(--accent-glow))}
+.logo-text-block{display:flex;flex-direction:column;line-height:1}
+.logo-title{font-size:13px;font-weight:800;color:var(--accent);letter-spacing:0.06em;text-transform:uppercase}
+.logo-sub{font-size:9px;font-weight:500;color:var(--text3);letter-spacing:0.14em;text-transform:uppercase;margin-top:3px}
+.live-badge{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:0.14em;color:var(--green);text-transform:uppercase;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);padding:3px 9px;border-radius:20px}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.6s infinite}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 4px var(--green)}50%{opacity:0.3;box-shadow:none}}
+
+.topbar-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.surprise-btn{
+  display:flex;align-items:center;gap:7px;
+  padding:7px 16px;border-radius:9px;
+  border:1px solid var(--border);background:var(--surface2);
+  color:var(--text2);font-size:11px;font-weight:600;letter-spacing:0.04em;
+  cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
+.surprise-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--surface3);box-shadow:0 0 12px var(--accent-glow)}
+.surprise-icon{font-size:14px;display:inline-block;animation:spin-slow 4s linear infinite}
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+
+.topbar-submit-btn{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 20px;border-radius:9px;border:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;font-size:12px;font-weight:700;letter-spacing:0.04em;
+  cursor:pointer;transition:all 0.2s;white-space:nowrap;
+  box-shadow:0 2px 16px var(--accent-glow);
+}
+.topbar-submit-btn:hover{transform:translateY(-1px);box-shadow:0 4px 24px var(--accent-glow)}
+.topbar-submit-btn:disabled{opacity:0.45;cursor:not-allowed;transform:none}
+
+/* ── LAYOUT ── */
+.layout{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:1fr 260px;
+  min-height:calc(100vh - var(--topbar-h));
+  align-items:start;
+}
+.main-col{padding:28px 24px 80px;min-width:0}
+.sidebar-col{
+  position:sticky;top:var(--topbar-h);
+  height:calc(100vh - var(--topbar-h));
+  overflow-y:auto;
+  padding:20px 16px 40px;
+  border-left:1px solid var(--border);
+  background:var(--surface);
+  display:flex;flex-direction:column;gap:10px;
+  scrollbar-width:thin;scrollbar-color:var(--border) transparent;
+}
+
+/* ── SCORE SIDEBAR ── */
+.score-header{
+  padding:16px;background:var(--surface2);
+  border:1px solid var(--border);border-radius:var(--radius);
+  text-align:center;position:relative;overflow:hidden;
+}
+.score-header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,var(--accent-glow),transparent 70%);pointer-events:none}
+.score-label-top{font-size:9px;font-weight:700;letter-spacing:0.18em;color:var(--text3);text-transform:uppercase}
+.score-big{font-family:'JetBrains Mono',monospace;font-size:54px;font-weight:700;line-height:1;color:var(--accent);text-shadow:0 0 24px var(--accent-glow);margin:6px 0 2px;transition:color 0.4s}
+.score-denom{font-size:12px;color:var(--text2)}
+.score-ring-wrap{margin:12px auto 0;width:80px;height:80px}
+.score-ring{transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:var(--border);stroke-width:6}
+.ring-fg{fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset 0.6s ease,stroke 0.4s;filter:drop-shadow(0 0 5px var(--accent))}
+
+.score-cats-list{display:flex;flex-direction:column;gap:6px}
+.score-cat-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;border-radius:9px;
+  background:var(--surface2);border:1px solid var(--border);
+  transition:all 0.2s;
+}
+.score-cat-row.error{background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.3)}
+.score-cat-row.ok{border-color:rgba(34,197,94,0.2)}
+.scat-name{font-size:11px;color:var(--text2);display:flex;align-items:center;gap:6px}
+.scat-dot{width:5px;height:5px;border-radius:50%;background:var(--text3);flex-shrink:0;transition:background 0.3s}
+.score-cat-row.error .scat-dot{background:var(--red)}
+.score-cat-row.ok .scat-dot{background:var(--green)}
+.scat-val{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--surface3);color:var(--accent);transition:all 0.3s}
+.score-cat-row.error .scat-val{color:var(--red);background:rgba(239,68,68,0.15)}
+.score-cat-row.ok .scat-val{color:var(--green);background:rgba(34,197,94,0.12)}
+
+/* ── PAGE HEADER ── */
+.page-header{margin-bottom:24px}
+.page-title{font-size:20px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:10px;letter-spacing:0.01em}
+.page-sub{font-size:12px;color:var(--text2);margin-top:5px;line-height:1.5}
+
+/* ── SECTIONS ── */
+.section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow);transition:border-color 0.2s,box-shadow 0.2s}
+.section:hover{border-color:var(--accent);box-shadow:var(--shadow),0 0 0 1px var(--accent-glow)}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--surface2);border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+.section-header-left{display:flex;align-items:center;gap:10px}
+.section-icon{font-size:16px}
+.section-title{font-size:13px;font-weight:700;letter-spacing:0.02em}
+.section-subtitle{font-size:10px;color:var(--text3);margin-top:2px}
+.chevron{font-size:11px;color:var(--text3);transition:transform 0.3s}
+.section.collapsed .chevron{transform:rotate(-90deg)}
+.section-body{padding:16px;display:flex;flex-direction:column;gap:12px}
+.section.collapsed .section-body{display:none}
+
+/* ── FIELDS ── */
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;font-weight:600;color:var(--text2);letter-spacing:0.04em;display:flex;align-items:center;gap:6px;flex-wrap:wrap;text-transform:uppercase}
+.field label .req{color:var(--red)}
+.field select,.field input,.field textarea{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:100%}
+.field select:focus,.field input:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.field textarea{min-height:80px;resize:vertical}
+.fields-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:540px){.fields-row{grid-template-columns:1fr}}
+
+/* ── SUBCAT CARDS ── */
+.subcat-card{background:var(--surface2);border:1px solid var(--border);border-radius:11px;margin-bottom:10px;overflow:hidden;transition:border-color 0.2s}
+.subcat-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--surface);border-bottom:1px solid var(--border)}
+.subcat-name{font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px;letter-spacing:0.03em}
+.subcat-points{font-size:10px;font-family:'JetBrains Mono',monospace;padding:2px 9px;border-radius:10px;background:var(--surface2);color:var(--text2);transition:all 0.3s}
+.subcat-points.error{background:rgba(239,68,68,0.18);color:var(--red);box-shadow:0 0 8px rgba(239,68,68,0.2)}
+.subcat-points.ok{background:rgba(34,197,94,0.12);color:var(--green)}
+.subcat-body{padding:10px 14px;display:flex;flex-direction:column;gap:9px}
+.attr-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border2)}
+.attr-row:last-child{border-bottom:none}
+.attr-name{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:8px;flex:1}
+.attr-col-badge{font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:600;color:var(--accent);background:var(--accent-glow);padding:2px 6px;border-radius:4px;border:1px solid var(--accent);opacity:0.75;flex-shrink:0}
+.attr-toggle{display:flex;gap:6px;flex-shrink:0}
+.attr-btn{padding:5px 14px;border-radius:7px;border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;letter-spacing:0.03em}
+.attr-btn:hover{border-color:var(--accent);color:var(--accent)}
+.attr-btn.yes.active{background:rgba(34,197,94,0.18);border-color:var(--green);color:var(--green);box-shadow:0 0 8px rgba(34,197,94,0.2)}
+.attr-btn.no.active{background:rgba(239,68,68,0.18);border-color:var(--red);color:var(--red);box-shadow:0 0 8px rgba(239,68,68,0.2)}
+
+/* ── SUBMIT ── */
+.submit-area{display:flex;align-items:center;gap:12px;margin-top:20px;flex-wrap:wrap}
+.btn-reset{padding:11px 20px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s}
+.btn-reset:hover{border-color:var(--red);color:var(--red)}
+.btn-submit{flex:1;padding:13px 24px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:14px;font-weight:700;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px var(--accent-glow)}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--accent-glow)}
+.btn-submit:disabled{opacity:0.45;cursor:not-allowed;transform:none}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;z-index:999;padding:13px 20px;border-radius:11px;font-size:13px;font-weight:600;letter-spacing:0.02em;box-shadow:0 8px 32px rgba(0,0,0,0.35);transform:translateY(80px);opacity:0;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);max-width:340px;backdrop-filter:blur(12px)}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:var(--green)}
+.toast.error{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:var(--red)}
+.toast.info{background:rgba(99,102,241,0.12);border:1px solid var(--border);color:var(--accent)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .layout{grid-template-columns:1fr}
+  .sidebar-col{position:static;height:auto;border-left:none;border-top:1px solid var(--border);order:-1;padding:16px}
+  .score-ring-wrap{display:none}
+  .score-cats-list{flex-direction:row;flex-wrap:wrap;gap:6px}
+  .score-cat-row{flex:1;min-width:calc(50% - 3px)}
+}
+@media(max-width:540px){.logo-sub,.live-badge{display:none}.topbar{padding:0 12px}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a class="logo-wrap" href="#">
+      <img class="logo-icon" src="favicon-32x32.png" alt="Logo" onerror="this.src='apple-touch-icon.png'">
+      <div class="logo-text-block">
+        <span class="logo-title">Compliance Audit</span>
+        <span class="logo-sub">CRM · Sheet Sync</span>
+      </div>
+    </a>
+    <div class="live-badge"><div class="live-dot"></div>LIVE · SHEET SYNC</div>
+  </div>
+  <div class="topbar-right">
+    <button class="surprise-btn" onclick="surpriseMe()">
+      <span class="surprise-icon">✦</span> Surprise Me
+    </button>
+    <button type="button" class="topbar-submit-btn" id="topbarSubmitBtn" onclick="triggerSubmit()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      Submit Audit
+    </button>
+  </div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- MAIN FORM -->
+  <div class="main-col">
+    <div class="page-header">
+      <div class="page-title">⬡ Compliance Audit</div>
+      <div class="page-sub">Mark "No" for ANY attribute → that sub-category loses ALL 10 points</div>
+    </div>
+
+    <form id="auditForm">
+
+      <!-- CASE INFO -->
+      <div class="section" id="sec-case">
+        <div class="section-header" onclick="toggleSection('sec-case')">
+          <div class="section-header-left">
+            <span class="section-icon">◈</span>
+            <div>
+              <div class="section-title">Case Information</div>
+              <div class="section-subtitle">Consultant · Lead Stage · Contact Type · Notes</div>
+            </div>
+          </div>
+          <span class="chevron">▾</span>
+        </div>
+        <div class="section-body">
+          <div class="fields-row">
+<div class="field">
+  <select id="consultant" required>
+    <option value="">— Select Consultant —</option>
+    <option>Jully</option>
+    <option>Akanksha Yadav</option>
+    <option>Ambreen Syed</option>
+    <option>Insha Khan</option>
+    <option>Ahlam</option>
+    <option>Miaade</option>
+    <option>Patrecia</option>
+    <option>Rahul</option>
+    <option>Abhi V</option>
+    <option>Arya</option>
+    <option>Wahab</option>
+    <option>Asfandiyar Malik</option>
+    <option>Kawleen Kaur</option>
+    <option>Komal Zahid</option>
+    <option>Muhammad Jalal</option>
+    <option>Khurram Iqbal</option>
+    <option>Ronalyn Aguilar</option>
+    <option>Aleen Naeem</option>
+    <option>Ayesha Anum</option>
+    <option>Madah Khan</option>
+  </select>
+</div>
+            <div class="field">
+              <label>First Contact Type <span class="req">*</span></label>
+              <select id="contactType" required>
+                <option value="">— Select —</option><option>Call</option><option>Email</option><option>WhatsApp</option><option>None</option>
+              </select>
+            </div>
+          </div>
+          <div class="fields-row">
+            <div class="field">
+              <label>Lead Stage <span class="req">*</span></label>
+              <select id="leadStage" required>
+                <option value="">— Select Lead Stage —</option>
+                <option>No Answer</option><option>Schedule Call Back</option><option>Qualified CAN</option>
+                <option>Qualified AUS</option><option>USA NIW</option><option>Germany Opportunity Card</option>
+                <option>They Didn't Fill</option><option>Wrong Number</option><option>Ineligible</option>
+                <option>Switched Off</option><option>Cannot Dial</option><option>Outside GCC</option>
+                <option>Sale</option><option>Already Migrated</option><option>Started with competitor</option><option>Blank</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Case Link (HubSpot URL) <span class="req">*</span></label>
+              <input type="url" id="caseLink" placeholder="https://app.hubspot.com/..." required/>
+            </div>
+          </div>
+          <div class="fields-row">
+            <div class="field">
+              <label>Auditor Name <span class="req">*</span></label>
+              <input type="text" id="auditorName" placeholder="Your name" required/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Comments / Observations</label>
+            <textarea id="comments" placeholder="Any additional notes..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- CALL -->
+      <div class="subcat-card" data-subcat="call">
+        <div class="subcat-header"><div class="subcat-name">📞 Call</div><div class="subcat-points" id="call-points">10 / 10</div></div>
+        <div class="subcat-body">
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">D</span>Call Made</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="call" data-col="D" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="call" data-col="D" onclick="setAttr(this,false)">✗ No</button></div></div>
+        </div>
+      </div>
+
+      <!-- WHATSAPP -->
+      <div class="subcat-card" data-subcat="whatsapp">
+        <div class="subcat-header"><div class="subcat-name">💬 WhatsApp</div><div class="subcat-points" id="whatsapp-points">10 / 10</div></div>
+        <div class="subcat-body">
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">E</span>WhatsApp Used (when required)</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="whatsapp" data-col="E" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="whatsapp" data-col="E" onclick="setAttr(this,false)">✗ No</button></div></div>
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">F</span>WhatsApp Logged in HubSpot</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="whatsapp" data-col="F" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="whatsapp" data-col="F" onclick="setAttr(this,false)">✗ No</button></div></div>
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">G</span>WhatsApp Note (if unavailable)</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="whatsapp" data-col="G" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="whatsapp" data-col="G" onclick="setAttr(this,false)">✗ No</button></div></div>
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="subcat-card" data-subcat="email">
+        <div class="subcat-header"><div class="subcat-name">✉️ Email</div><div class="subcat-points" id="email-points">10 / 10</div></div>
+        <div class="subcat-body">
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">H</span>Email Sent (when required)</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="email" data-col="H" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="email" data-col="H" onclick="setAttr(this,false)">✗ No</button></div></div>
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">I</span>Professional Tone (no AI/emojis)</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="email" data-col="I" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="email" data-col="I" onclick="setAttr(this,false)">✗ No</button></div></div>
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">J</span>Company Signature Used</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="email" data-col="J" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="email" data-col="J" onclick="setAttr(this,false)">✗ No</button></div></div>
+        </div>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <div class="subcat-card" data-subcat="description">
+        <div class="subcat-header"><div class="subcat-name">📝 Call Description</div><div class="subcat-points" id="description-points">10 / 10</div></div>
+        <div class="subcat-body">
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">K</span>Description / Call Notes added</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="description" data-col="K" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="description" data-col="K" onclick="setAttr(this,false)">✗ No</button></div></div>
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">L</span>All Required Properties Completed</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="description" data-col="L" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="description" data-col="L" onclick="setAttr(this,false)">✗ No</button></div></div>
+        </div>
+      </div>
+
+      <!-- LEAD STAGE -->
+      <div class="subcat-card" data-subcat="leadstage">
+        <div class="subcat-header"><div class="subcat-name">🏷️ Lead Stage Compliance</div><div class="subcat-points" id="leadstage-points">10 / 10</div></div>
+        <div class="subcat-body">
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">M</span>Lead Stage Updated After Contact</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="leadstage" data-col="M" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="leadstage" data-col="M" onclick="setAttr(this,false)">✗ No</button></div></div>
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">N</span>Qualified Stage Marked (if qualified)</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="leadstage" data-col="N" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="leadstage" data-col="N" onclick="setAttr(this,false)">✗ No</button></div></div>
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">O</span>Correct Lead Stage Used (per SOP)</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="leadstage" data-col="O" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="leadstage" data-col="O" onclick="setAttr(this,false)">✗ No</button></div></div>
+        </div>
+      </div>
+
+      <!-- OUTCOME -->
+      <div class="subcat-card" data-subcat="outcome">
+        <div class="subcat-header"><div class="subcat-name">🎯 Outcome</div><div class="subcat-points" id="outcome-points">10 / 10</div></div>
+        <div class="subcat-body">
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">P</span>Outcome Recorded</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="outcome" data-col="P" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="outcome" data-col="P" onclick="setAttr(this,false)">✗ No</button></div></div>
+        </div>
+      </div>
+
+      <!-- DEAL -->
+      <div class="subcat-card" data-subcat="deal">
+        <div class="subcat-header"><div class="subcat-name">🤝 Deal</div><div class="subcat-points" id="deal-points">10 / 10</div></div>
+        <div class="subcat-body">
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">Q</span>Deal Created (if qualified)</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="deal" data-col="Q" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="deal" data-col="Q" onclick="setAttr(this,false)">✗ No</button></div></div>
+        </div>
+      </div>
+
+      <!-- PIPELINE -->
+      <div class="subcat-card" data-subcat="pipeline">
+        <div class="subcat-header"><div class="subcat-name">⚡ Pipeline & Timeline</div><div class="subcat-points" id="pipeline-points">10 / 10</div></div>
+        <div class="subcat-body">
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">R</span>Timeline Activity Set to "All Time"</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="pipeline" data-col="R" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="pipeline" data-col="R" onclick="setAttr(this,false)">✗ No</button></div></div>
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">S</span>Correct Pipeline Selected</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="pipeline" data-col="S" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="pipeline" data-col="S" onclick="setAttr(this,false)">✗ No</button></div></div>
+        </div>
+      </div>
+
+      <!-- TASK -->
+      <div class="subcat-card" data-subcat="task">
+        <div class="subcat-header"><div class="subcat-name">✅ Task</div><div class="subcat-points" id="task-points">10 / 10</div></div>
+        <div class="subcat-body">
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">T</span>Task Created (for callback/follow-up)</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="task" data-col="T" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="task" data-col="T" onclick="setAttr(this,false)">✗ No</button></div></div>
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">U</span>Task Completed Timely</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="task" data-col="U" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="task" data-col="U" onclick="setAttr(this,false)">✗ No</button></div></div>
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">V</span>Task Type Matches Request</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="task" data-col="V" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="task" data-col="V" onclick="setAttr(this,false)">✗ No</button></div></div>
+        </div>
+      </div>
+
+      <!-- TIMELY -->
+      <div class="subcat-card" data-subcat="timely">
+        <div class="subcat-header"><div class="subcat-name">⏱️ Timely Contact</div><div class="subcat-points" id="timely-points">10 / 10</div></div>
+        <div class="subcat-body">
+          <div class="attr-row"><div class="attr-name"><span class="attr-col-badge">W</span>Timely Contact Maintained</div><div class="attr-toggle"><button type="button" class="attr-btn yes" data-subcat="timely" data-col="W" onclick="setAttr(this,true)">✓ Yes</button><button type="button" class="attr-btn no" data-subcat="timely" data-col="W" onclick="setAttr(this,false)">✗ No</button></div></div>
+        </div>
+      </div>
+
+      <div class="submit-area">
+        <button type="button" class="btn-reset" onclick="resetForm()">↺ Reset</button>
+        <button type="submit" class="btn-submit" id="submitBtn">⬆ Submit Audit to Sheet</button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- SCORE SIDEBAR -->
+  <div class="sidebar-col">
+    <div class="score-header">
+      <div class="score-label-top">Total Score</div>
+      <div class="score-big" id="totalScore">100</div>
+      <div class="score-denom">/ 100</div>
+      <div class="score-ring-wrap">
+        <svg class="score-ring" width="80" height="80" viewBox="0 0 80 80">
+          <circle class="ring-bg" cx="40" cy="40" r="34"/>
+          <circle class="ring-fg" id="ringFg" cx="40" cy="40" r="34" stroke-dasharray="213.6" stroke-dashoffset="0"/>
+        </svg>
+      </div>
+    </div>
+    <div class="score-cats-list">
+      <div class="score-cat-row" id="sr-call"><span class="scat-name"><span class="scat-dot"></span>Call</span><span class="scat-val">10/10</span></div>
+      <div class="score-cat-row" id="sr-whatsapp"><span class="scat-name"><span class="scat-dot"></span>WhatsApp</span><span class="scat-val">10/10</span></div>
+      <div class="score-cat-row" id="sr-email"><span class="scat-name"><span class="scat-dot"></span>Email</span><span class="scat-val">10/10</span></div>
+      <div class="score-cat-row" id="sr-description"><span class="scat-name"><span class="scat-dot"></span>Description</span><span class="scat-val">10/10</span></div>
+      <div class="score-cat-row" id="sr-leadstage"><span class="scat-name"><span class="scat-dot"></span>Lead Stage</span><span class="scat-val">10/10</span></div>
+      <div class="score-cat-row" id="sr-outcome"><span class="scat-name"><span class="scat-dot"></span>Outcome</span><span class="scat-val">10/10</span></div>
+      <div class="score-cat-row" id="sr-deal"><span class="scat-name"><span class="scat-dot"></span>Deal</span><span class="scat-val">10/10</span></div>
+      <div class="score-cat-row" id="sr-pipeline"><span class="scat-name"><span class="scat-dot"></span>Pipeline</span><span class="scat-val">10/10</span></div>
+      <div class="score-cat-row" id="sr-task"><span class="scat-name"><span class="scat-dot"></span>Task</span><span class="scat-val">10/10</span></div>
+      <div class="score-cat-row" id="sr-timely"><span class="scat-name"><span class="scat-dot"></span>Timely Contact</span><span class="scat-val">10/10</span></div>
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const SHEET_URL="https://script.google.com/macros/s/AKfycbzYzfpKLvorsA8pcGHsEAkceYlRc7fKO3ro1QO4xmjQXyyzzJuXipirLJhzx4KVwPPdCQ/exec";
+const THEMES=['','t-cyber','t-matrix','t-hologram','t-fire','t-arctic','t-rose','t-gold','t-light','t-neon'];
+const THEME_NAMES=['Indigo','Cyber','Matrix','Hologram','Fire','Arctic','Rose','Gold','Light','Neon'];
+let themeIdx=0;
+
+function surpriseMe(){
+  const pool=THEMES.map((_,i)=>i).filter(i=>i!==themeIdx);
+  const next=pool[Math.floor(Math.random()*pool.length)];
+  themeIdx=next;
+  document.body.className=THEMES[next];
+  showToast('✦ '+THEME_NAMES[next]+' theme activated','info');
+}
+
+const subcatErrors={call:false,whatsapp:false,email:false,description:false,leadstage:false,outcome:false,deal:false,pipeline:false,task:false,timely:false};
+const columnValues={};
+
+function triggerSubmit(){document.getElementById('auditForm').dispatchEvent(new Event('submit',{cancelable:true,bubbles:true}))}
+
+function setAttr(btn,isYes){
+  const subcat=btn.dataset.subcat,col=btn.dataset.col;
+  const row=btn.closest('.attr-row');
+  if(columnValues[col]===isYes){columnValues[col]=null;row.querySelectorAll('.attr-btn').forEach(b=>b.classList.remove('active'));}
+  else{columnValues[col]=isYes;row.querySelectorAll('.attr-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+  updateSubcatError(subcat);updateScores();
+}
+
+function updateSubcatError(subcat){
+  const c=document.querySelector(`.subcat-card[data-subcat="${subcat}"]`);
+  if(!c)return;
+  subcatErrors[subcat]=c.querySelectorAll('.attr-btn.no.active').length>0;
+}
+
+function updateScores(){
+  let total=0;
+  const subcats=['call','whatsapp','email','description','leadstage','outcome','deal','pipeline','task','timely'];
+  subcats.forEach(s=>{
+    const pts=subcatErrors[s]?0:10;
+    total+=pts;
+    const pe=document.getElementById(`${s}-points`);
+    if(pe){pe.textContent=`${pts} / 10`;pe.className='subcat-points '+(subcatErrors[s]?'error':'ok')}
+    const sr=document.getElementById(`sr-${s}`);
+    if(sr){sr.querySelector('.scat-val').textContent=`${pts}/10`;sr.className='score-cat-row '+(subcatErrors[s]?'error':'ok')}
+  });
+  const el=document.getElementById('totalScore');
+  el.textContent=total;
+  el.style.color=total>=90?'var(--green)':total>=70?'var(--yellow)':'var(--red)';
+  const ring=document.getElementById('ringFg');
+  if(ring){ring.style.strokeDashoffset=213.6-(total/100)*213.6;ring.style.stroke=total>=90?'var(--green)':total>=70?'var(--yellow)':'var(--red)';}
+}
+
+function toggleSection(id){document.getElementById(id).classList.toggle('collapsed')}
+
+function resetForm(){
+  document.getElementById('auditForm').reset();
+  Object.keys(columnValues).forEach(k=>delete columnValues[k]);
+  document.querySelectorAll('.attr-btn').forEach(b=>b.classList.remove('active'));
+  Object.keys(subcatErrors).forEach(k=>subcatErrors[k]=false);
+  updateScores();showToast('Form has been reset.','info');
+}
+
+function showToast(msg,type='info'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className=`toast ${type} show`;
+  setTimeout(()=>t.classList.remove('show'),4000);
+}
+
+function setSubmitting(state){
+  const btn=document.getElementById('submitBtn'),topBtn=document.getElementById('topbarSubmitBtn');
+  if(state){btn.disabled=true;btn.innerHTML='⏳ Submitting...';topBtn.disabled=true;topBtn.textContent='⏳';}
+  else{btn.disabled=false;btn.innerHTML='⬆ Submit Audit to Sheet';topBtn.disabled=false;topBtn.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> Submit Audit';}
+}
+
+document.getElementById('auditForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  // This creates the data object without the "occupation" field
+  const payload = {
+    action: 'submitAudit',
+    consultant: document.getElementById('consultant').value,
+    firstContactType: document.getElementById('contactType').value,
+    leadStageValue: document.getElementById('leadStage').value,
+    caseLink: document.getElementById('caseLink').value,
+    auditorName: document.getElementById('auditorName').value,
+    comments: document.getElementById('comments').value
+  };
+
+  // Validation: Check if required fields are filled
+  if (!payload.consultant || !payload.leadStageValue || !payload.caseLink || !payload.auditorName) {
+    showToast('⚠️ Fill all required fields.', 'error');
+    return;
+  }
+
+  // Add the audit checkmarks (Yes/No) to the payload
+  ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W'].forEach(col => {
+    const v = columnValues[col];
+    payload[`col_${col}`] = v === true ? 'Yes' : v === false ? 'No' : '';
+  });
+
+  setSubmitting(true);
+  showToast('Submitting audit to Google Sheet...', 'info');
+
+  try {
+    const params = new URLSearchParams();
+    Object.entries(payload).forEach(([k, v]) => {
+      if (v !== null && v !== undefined && v !== '') params.append(k, v);
+    });
+
+    await fetch(SHEET_URL + '?' + params.toString(), {
+      method: 'GET',
+      mode: 'no-cors'
+    });
+
+    showToast('✓ Audit Submitted!', 'success');
+    setTimeout(() => resetForm(), 1500);
+  } catch (err) {
+    showToast('✗ Submission failed.', 'error');
+  } finally {
+    setSubmitting(false);
+  }
+});
+
+updateScores();
+</script>
+</body>
+</html>
