@@ -198,6 +198,29 @@ body::after{
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--accent-glow)}
 .btn-submit:disabled{opacity:0.45;cursor:not-allowed;transform:none}
 
+/* ── AUTOFAIL ── */
+.autofail-field{display:flex;flex-direction:column;gap:6px}
+.autofail-field label{font-size:11px;font-weight:600;color:var(--text2);letter-spacing:0.04em;text-transform:uppercase}
+.btn-autofail{
+  width:100%;padding:11px 16px;border-radius:var(--radius-sm);
+  border:1px solid rgba(239,68,68,0.4);background:rgba(239,68,68,0.08);
+  color:#f87171;font-size:13px;font-weight:700;letter-spacing:0.03em;
+  cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;
+  font-family:'Inter',sans-serif;
+}
+.btn-autofail:hover{background:rgba(239,68,68,0.16);border-color:rgba(239,68,68,0.7);color:#fca5a5}
+.btn-autofail.active{
+  background:rgba(239,68,68,0.22);border-color:#ef4444;color:#fff;
+  box-shadow:0 0 12px rgba(239,68,68,0.35);
+}
+.autofail-notice{
+  padding:8px 12px;border-radius:var(--radius-sm);
+  background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);
+  font-size:11px;color:#f87171;font-weight:600;letter-spacing:0.04em;text-align:center;
+  display:none;
+}
+.autofail-notice.show{display:block}
+
 /* ── TOAST ── */
 .toast{position:fixed;bottom:24px;right:24px;z-index:999;padding:13px 20px;border-radius:11px;font-size:13px;font-weight:600;letter-spacing:0.02em;box-shadow:0 8px 32px rgba(0,0,0,0.35);transform:translateY(80px);opacity:0;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);max-width:340px;backdrop-filter:blur(12px)}
 .toast.show{transform:translateY(0);opacity:1}
@@ -216,7 +239,7 @@ body::after{
 @media(max-width:540px){.logo-sub,.live-badge{display:none}.topbar{padding:0 12px}}
 </style>
 </head>
-<body>
+<body class="t-light">
 
 <!-- TOPBAR -->
 <div class="topbar">
@@ -231,8 +254,8 @@ body::after{
     <div class="live-badge"><div class="live-dot"></div>LIVE · SHEET SYNC</div>
   </div>
   <div class="topbar-right">
-    <button class="surprise-btn" onclick="surpriseMe()">
-      <span class="surprise-icon">✦</span> Surprise Me
+    <button class="surprise-btn" id="themeToggleBtn" onclick="toggleTheme()">
+      <span id="themeIcon">☀️</span> <span id="themeLabel">Light Mode</span>
     </button>
     <button type="button" class="topbar-submit-btn" id="topbarSubmitBtn" onclick="triggerSubmit()">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
@@ -267,31 +290,32 @@ body::after{
         </div>
         <div class="section-body">
           <div class="fields-row">
-<div class="field">
-  <select id="consultant" required>
-    <option value="">— Select Consultant —</option>
-    <option>Jully</option>
-    <option>Akanksha Yadav</option>
-    <option>Ambreen Syed</option>
-    <option>Insha Khan</option>
-    <option>Ahlam</option>
-    <option>Miaade</option>
-    <option>Patrecia</option>
-    <option>Rahul</option>
-    <option>Abhi V</option>
-    <option>Arya</option>
-    <option>Wahab</option>
-    <option>Asfandiyar Malik</option>
-    <option>Kawleen Kaur</option>
-    <option>Komal Zahid</option>
-    <option>Muhammad Jalal</option>
-    <option>Khurram Iqbal</option>
-    <option>Ronalyn Aguilar</option>
-    <option>Aleen Naeem</option>
-    <option>Ayesha Anum</option>
-    <option>Madah Khan</option>
-  </select>
-</div>
+            <div class="field">
+              <label>Consultant Name <span class="req">*</span></label>
+              <select id="consultant" required>
+                <option value="">— Select Consultant —</option>
+                <option>Jully</option>
+                <option>Akanksha Yadav</option>
+                <option>Ambreen Syed</option>
+                <option>Insha Khan</option>
+                <option>Ahlam</option>
+                <option>Miaade</option>
+                <option>Patrecia</option>
+                <option>Rahul</option>
+                <option>Abhi V</option>
+                <option>Arya</option>
+                <option>Wahab</option>
+                <option>Asfandiyar Malik</option>
+                <option>Kawleen Kaur</option>
+                <option>Komal Zahid</option>
+                <option>Muhammad Jalal</option>
+                <option>Khurram Iqbal</option>
+                <option>Ronalyn Aguilar</option>
+                <option>Aleen Naeem</option>
+                <option>Ayesha Anum</option>
+                <option>Madah Khan</option>
+              </select>
+            </div>
             <div class="field">
               <label>First Contact Type <span class="req">*</span></label>
               <select id="contactType" required>
@@ -315,6 +339,11 @@ body::after{
               <label>Case Link (HubSpot URL) <span class="req">*</span></label>
               <input type="url" id="caseLink" placeholder="https://app.hubspot.com/..." required/>
             </div>
+          </div>
+          <div class="autofail-field">
+            <label>Autofail Override</label>
+            <button type="button" class="btn-autofail" id="autofailBtn" onclick="triggerAutofail()">⚠ Autofail — Force Score to Zero</button>
+            <div class="autofail-notice" id="autofailNotice">⛔ AUTOFAIL ACTIVE — All criteria set to NO · Score = 0</div>
           </div>
           <div class="fields-row">
             <div class="field">
@@ -459,20 +488,44 @@ body::after{
 
 <script>
 const SHEET_URL="https://script.google.com/macros/s/AKfycbzYzfpKLvorsA8pcGHsEAkceYlRc7fKO3ro1QO4xmjQXyyzzJuXipirLJhzx4KVwPPdCQ/exec";
-const THEMES=['','t-cyber','t-matrix','t-hologram','t-fire','t-arctic','t-rose','t-gold','t-light','t-neon'];
-const THEME_NAMES=['Indigo','Cyber','Matrix','Hologram','Fire','Arctic','Rose','Gold','Light','Neon'];
-let themeIdx=0;
 
-function surpriseMe(){
-  const pool=THEMES.map((_,i)=>i).filter(i=>i!==themeIdx);
-  const next=pool[Math.floor(Math.random()*pool.length)];
-  themeIdx=next;
-  document.body.className=THEMES[next];
-  showToast('✦ '+THEME_NAMES[next]+' theme activated','info');
+let isDark=false;
+
+function toggleTheme(){
+  isDark=!isDark;
+  document.body.className=isDark?'':'t-light';
+  document.getElementById('themeIcon').textContent=isDark?'☀️':'🌙';
+  document.getElementById('themeLabel').textContent=isDark?'Light Mode':'Dark Mode';
 }
 
 const subcatErrors={call:false,whatsapp:false,email:false,description:false,leadstage:false,outcome:false,deal:false,pipeline:false,task:false,timely:false};
 const columnValues={};
+let autofailActive=false;
+
+function triggerAutofail(){
+  autofailActive=!autofailActive;
+  const btn=document.getElementById('autofailBtn');
+  const notice=document.getElementById('autofailNotice');
+  if(autofailActive){
+    btn.classList.add('active');
+    btn.textContent='✕ Cancel Autofail';
+    notice.classList.add('show');
+    // Visually mark all NO buttons active
+    document.querySelectorAll('.attr-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.attr-btn.no').forEach(b=>b.classList.add('active'));
+  } else {
+    btn.classList.remove('active');
+    btn.textContent='⚠ Autofail — Force Score to Zero';
+    notice.classList.remove('show');
+    // Restore visual state from columnValues
+    document.querySelectorAll('.attr-btn').forEach(b=>b.classList.remove('active'));
+    Object.entries(columnValues).forEach(([col,val])=>{
+      const btn2=document.querySelector(`.attr-btn[data-col="${col}"]${val===true?'.yes':'.no'}`);
+      if(btn2)btn2.classList.add('active');
+    });
+  }
+  updateScores();
+}
 
 function triggerSubmit(){document.getElementById('auditForm').dispatchEvent(new Event('submit',{cancelable:true,bubbles:true}))}
 
@@ -494,12 +547,13 @@ function updateScores(){
   let total=0;
   const subcats=['call','whatsapp','email','description','leadstage','outcome','deal','pipeline','task','timely'];
   subcats.forEach(s=>{
-    const pts=subcatErrors[s]?0:10;
+    const isErr=autofailActive||subcatErrors[s];
+    const pts=isErr?0:10;
     total+=pts;
     const pe=document.getElementById(`${s}-points`);
-    if(pe){pe.textContent=`${pts} / 10`;pe.className='subcat-points '+(subcatErrors[s]?'error':'ok')}
+    if(pe){pe.textContent=`${pts} / 10`;pe.className='subcat-points '+(isErr?'error':'ok')}
     const sr=document.getElementById(`sr-${s}`);
-    if(sr){sr.querySelector('.scat-val').textContent=`${pts}/10`;sr.className='score-cat-row '+(subcatErrors[s]?'error':'ok')}
+    if(sr){sr.querySelector('.scat-val').textContent=`${pts}/10`;sr.className='score-cat-row '+(isErr?'error':'ok')}
   });
   const el=document.getElementById('totalScore');
   el.textContent=total;
@@ -511,6 +565,11 @@ function updateScores(){
 function toggleSection(id){document.getElementById(id).classList.toggle('collapsed')}
 
 function resetForm(){
+  autofailActive=false;
+  const afBtn=document.getElementById('autofailBtn');
+  if(afBtn){afBtn.classList.remove('active');afBtn.textContent='⚠ Autofail — Force Score to Zero';}
+  const afNotice=document.getElementById('autofailNotice');
+  if(afNotice)afNotice.classList.remove('show');
   document.getElementById('auditForm').reset();
   Object.keys(columnValues).forEach(k=>delete columnValues[k]);
   document.querySelectorAll('.attr-btn').forEach(b=>b.classList.remove('active'));
@@ -552,7 +611,7 @@ document.getElementById('auditForm').addEventListener('submit', async function(e
 
   // Add the audit checkmarks (Yes/No) to the payload
   ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W'].forEach(col => {
-    const v = columnValues[col];
+    const v = autofailActive ? false : columnValues[col];
     payload[`col_${col}`] = v === true ? 'Yes' : v === false ? 'No' : '';
   });
 
