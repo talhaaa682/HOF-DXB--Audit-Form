@@ -484,7 +484,7 @@ function init() {
   sel.innerHTML = '<option value="">— Select Consultant —</option>';
   CONSULTANTS.forEach(c => {
     const o = document.createElement('option');
-    o.value = c.name; o.textContent = c.name + ' · ' + c.team; sel.appendChild(o);
+    o.value = c.name; o.textContent = c.name; sel.appendChild(o);
   });
   renderAttributes();
   updateScore();
