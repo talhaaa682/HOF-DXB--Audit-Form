@@ -9,176 +9,258 @@
 :root {
   --bg:#0b0f1e; --surface:#111827; --surface2:#1a2236; --surface3:#212d45;
   --border:#263352; --border2:#1e2a44;
-  --accent:#6366f1; --accent2:#818cf8; --accent-glow:rgba(99,102,241,0.25);
+  --accent:#f97316; --accent2:#fb923c; --accent-glow:rgba(249,115,22,0.25);
   --green:#22c55e; --red:#ef4444; --yellow:#f59e0b;
   --text:#e2e8f8; --text2:#8b94b8; --text3:#4a5280;
   --shadow:0 8px 32px rgba(0,0,0,0.5);
-  --radius:14px; --radius-sm:8px;
-  --topbar-h:60px;
+  --radius:14px; --radius-sm:8px; --topbar-h:60px;
 }
-.t-light{--bg:#f0f4ff;--surface:#ffffff;--surface2:#f4f6ff;--surface3:#eceffe;--border:#d8ddf5;--border2:#e5e8f8;--accent:#6366f1;--accent2:#818cf8;--accent-glow:rgba(99,102,241,0.15);--text:#1a1d35;--text2:#5a60a0;--text3:#9ca0c8;--shadow:0 4px 20px rgba(0,0,0,0.1)}
+.t-light {
+  --bg:#fff7ed; --surface:#ffffff; --surface2:#fff3e0; --surface3:#ffe0b2;
+  --border:#fed7aa; --border2:#fde8c8;
+  --accent:#ea580c; --accent2:#f97316; --accent-glow:rgba(234,88,12,0.15);
+  --text:#1c0a00; --text2:#7c3614; --text3:#c2733a;
+  --shadow:0 4px 20px rgba(0,0,0,0.1)
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background 0.4s,color 0.3s}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--border2) 1px,transparent 1px),linear-gradient(90deg,var(--border2) 1px,transparent 1px);background-size:48px 48px;opacity:0.3}
-body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 40% at 50% 0%,var(--accent-glow),transparent 70%)}
-.topbar{position:sticky;top:0;z-index:200;height:var(--topbar-h);background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;backdrop-filter:blur(20px);box-shadow:0 1px 0 var(--border),0 4px 24px rgba(0,0,0,0.4)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .4s,color .3s}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--border2) 1px,transparent 1px),linear-gradient(90deg,var(--border2) 1px,transparent 1px);
+  background-size:48px 48px;opacity:0.3}
+body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 60% 40% at 50% 0%,var(--accent-glow),transparent 70%)}
+
+/* ── TOPBAR ── */
+.topbar{position:sticky;top:0;z-index:200;height:var(--topbar-h);background:var(--surface);
+  border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;
+  justify-content:space-between;gap:12px;backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 var(--border),0 4px 24px rgba(0,0,0,0.4)}
 .topbar-left{display:flex;align-items:center;gap:12px;flex-shrink:0}
-.logo-text-block{display:flex;flex-direction:column;line-height:1}
-.logo-title{font-size:13px;font-weight:800;color:#f97316;letter-spacing:0.06em;text-transform:uppercase}
+.logo-title{font-size:13px;font-weight:800;color:var(--accent);letter-spacing:0.06em;text-transform:uppercase}
 .logo-sub{font-size:9px;font-weight:500;color:var(--text3);letter-spacing:0.14em;text-transform:uppercase;margin-top:3px}
-.live-badge{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:0.14em;color:var(--green);text-transform:uppercase;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);padding:3px 9px;border-radius:20px}
+.live-badge{display:flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:0.14em;
+  color:var(--green);text-transform:uppercase;background:rgba(34,197,94,0.08);
+  border:1px solid rgba(34,197,94,0.2);padding:3px 9px;border-radius:20px}
 .live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 1.6s infinite}
 @keyframes blink{0%,100%{opacity:1;box-shadow:0 0 4px var(--green)}50%{opacity:0.3;box-shadow:none}}
 .topbar-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.theme-toggle-btn{display:flex;align-items:center;gap:7px;padding:7px 16px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:11px;font-weight:600;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;white-space:nowrap;font-family:'Inter',sans-serif}
-.theme-toggle-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--surface3)}
-.topbar-submit-btn{display:flex;align-items:center;gap:7px;padding:8px 20px;border-radius:9px;border:none;background:linear-gradient(135deg,#f97316,#fb923c);color:#fff;font-size:12px;font-weight:700;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;white-space:nowrap;box-shadow:0 2px 16px rgba(249,115,22,0.3)}
-.topbar-submit-btn:hover{transform:translateY(-1px);box-shadow:0 4px 24px rgba(249,115,22,0.4)}
-.topbar-submit-btn:disabled{opacity:0.45;cursor:not-allowed;transform:none}
-.topbar-finish-btn{display:flex;align-items:center;gap:7px;padding:8px 20px;border-radius:9px;border:1px solid var(--green);background:rgba(34,197,94,0.12);color:var(--green);font-size:12px;font-weight:700;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;white-space:nowrap;font-family:'Inter',sans-serif}
-.topbar-finish-btn:hover{background:rgba(34,197,94,0.2);border-color:var(--green);transform:translateY(-1px)}
-.topbar-finish-btn:disabled{opacity:0.45;cursor:not-allowed;transform:none}
+.topbar-btn{display:flex;align-items:center;gap:7px;padding:8px 18px;border-radius:9px;
+  font-size:12px;font-weight:700;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;
+  white-space:nowrap;font-family:'Inter',sans-serif}
+.topbar-btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important}
+.btn-theme{border:1px solid var(--border);background:var(--surface2);color:var(--text2)}
+.btn-theme:hover{border-color:var(--accent);color:var(--accent);background:var(--surface3)}
+.btn-finish{border:1px solid var(--green);background:rgba(34,197,94,0.12);color:var(--green)}
+.btn-finish:hover{background:rgba(34,197,94,0.2);transform:translateY(-1px)}
+.btn-sendall{border:1px solid var(--yellow);background:rgba(245,158,11,0.12);color:var(--yellow)}
+.btn-sendall:hover{background:rgba(245,158,11,0.2);transform:translateY(-1px)}
+.btn-submit{border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;
+  box-shadow:0 2px 16px var(--accent-glow)}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 4px 24px var(--accent-glow)}
+
+/* ── LAYOUT ── */
 .layout{position:relative;z-index:1;display:grid;grid-template-columns:1fr 320px;min-height:calc(100vh - var(--topbar-h));align-items:start}
 .main-col{padding:28px 24px 80px;min-width:0}
-.sidebar-col{position:sticky;top:var(--topbar-h);height:calc(100vh - var(--topbar-h));overflow-y:auto;padding:20px 16px 40px;border-left:1px solid var(--border);background:var(--surface);display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.sidebar-col{position:sticky;top:var(--topbar-h);height:calc(100vh - var(--topbar-h));overflow-y:auto;
+  padding:20px 16px 40px;border-left:1px solid var(--border);background:var(--surface);
+  display:flex;flex-direction:column;gap:10px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+
+/* ── SCORE CARD ── */
 .score-header{padding:16px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);text-align:center;position:relative;overflow:hidden}
 .score-header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,var(--accent-glow),transparent 70%);pointer-events:none}
 .score-label-top{font-size:9px;font-weight:700;letter-spacing:0.18em;color:var(--text3);text-transform:uppercase}
-.score-big{font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:700;line-height:1;color:var(--accent);text-shadow:0 0 24px var(--accent-glow);margin:8px 0 4px;transition:color 0.4s;letter-spacing:-1px}
-.score-denom{font-size:12px;color:var(--text2);margin-bottom:4px}
+.score-big{font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:700;line-height:1;
+  color:var(--accent);text-shadow:0 0 24px var(--accent-glow);margin:8px 0 4px;transition:color .4s;letter-spacing:-1px}
 .score-ring-wrap{margin:14px auto 0;width:70px;height:70px}
 .score-ring{transform:rotate(-90deg)}
 .ring-bg{fill:none;stroke:var(--border);stroke-width:6}
-.ring-fg{fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset 0.6s ease,stroke 0.4s;filter:drop-shadow(0 0 5px var(--accent))}
-.critical-banner{margin-top:14px;padding:11px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);border-radius:8px;color:var(--red);font-size:11px;font-weight:700;text-align:center;display:none}
+.ring-fg{fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;transition:stroke-dashoffset .6s ease,stroke .4s;filter:drop-shadow(0 0 5px var(--accent))}
+.critical-banner{margin-top:14px;padding:11px;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);
+  border-radius:8px;color:var(--red);font-size:11px;font-weight:700;text-align:center;display:none}
 .critical-banner.active{display:block}
+
+/* ── PAGE HEADER ── */
 .page-header{margin-bottom:24px}
 .page-title{font-size:20px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:10px;letter-spacing:0.01em}
 .page-sub{font-size:12px;color:var(--text2);margin-top:5px;line-height:1.5}
-.section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow);transition:border-color 0.2s,box-shadow 0.2s}
-.section:hover{border-color:#f97316;box-shadow:var(--shadow),0 0 0 1px rgba(249,115,22,0.2)}
-.section-header{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;background:var(--surface2);border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
+
+/* ── SECTION ── */
+.section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s}
+.section:hover{border-color:var(--accent);box-shadow:var(--shadow),0 0 0 1px var(--accent-glow)}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;
+  background:var(--surface2);border-bottom:1px solid var(--border);cursor:pointer;user-select:none}
 .section-header-left{display:flex;align-items:center;gap:10px}
 .section-icon{font-size:16px}
 .section-title{font-size:13px;font-weight:700;letter-spacing:0.02em}
 .section-subtitle{font-size:10px;color:var(--text3);margin-top:2px}
-.chevron{font-size:11px;color:var(--text3);transition:transform 0.3s}
+.chevron{font-size:11px;color:var(--text3);transition:transform .3s}
 .section.collapsed .chevron{transform:rotate(-90deg)}
 .section-body{padding:16px;display:flex;flex-direction:column;gap:12px}
 .section.collapsed .section-body{display:none}
+
+/* ── FIELDS ── */
 .field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:11px;font-weight:600;color:var(--text2);letter-spacing:0.04em;display:flex;align-items:center;gap:6px;flex-wrap:wrap;text-transform:uppercase}
+.field label{font-size:11px;font-weight:600;color:var(--text2);letter-spacing:0.04em;
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;text-transform:uppercase}
 .field label .req{color:var(--red)}
-.field select,.field input,.field textarea{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s,box-shadow 0.2s;width:100%}
-.field select:focus,.field input:focus,.field textarea:focus{border-color:#f97316;box-shadow:0 0 0 3px rgba(249,115,22,0.15)}
+.field select,.field input,.field textarea{background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;
+  font-family:'Inter',sans-serif;outline:none;transition:border-color .2s,box-shadow .2s;width:100%}
+.field select:focus,.field input:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .field textarea{min-height:80px;resize:vertical}
 .fields-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ── PIN FIELDS ── */
 .field-with-pin{display:flex;flex-direction:column;gap:6px;position:relative}
 .field-label-row{display:flex;align-items:center;justify-content:space-between}
 .field-label-row label{font-size:11px;font-weight:600;color:var(--text2);letter-spacing:0.04em;display:flex;align-items:center;gap:6px;flex-wrap:wrap;text-transform:uppercase}
-.pin-btn{display:flex;align-items:center;gap:4px;padding:3px 9px;border-radius:6px;border:1px solid var(--border);background:var(--surface3);color:var(--text3);font-size:9px;font-weight:700;letter-spacing:0.08em;cursor:pointer;transition:all 0.2s;text-transform:uppercase;flex-shrink:0;font-family:'Inter',sans-serif}
+.pin-btn{display:flex;align-items:center;gap:4px;padding:3px 9px;border-radius:6px;border:1px solid var(--border);background:var(--surface3);
+  color:var(--text3);font-size:9px;font-weight:700;letter-spacing:0.08em;cursor:pointer;transition:all .2s;text-transform:uppercase;flex-shrink:0;font-family:'Inter',sans-serif}
 .pin-btn:hover{border-color:var(--accent);color:var(--accent)}
 .pin-btn.pinned{border-color:var(--yellow);color:var(--yellow);background:rgba(245,158,11,0.12);box-shadow:0 0 8px rgba(245,158,11,0.2)}
-.pinned-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;color:var(--yellow);background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);padding:2px 8px;border-radius:12px;margin-left:6px;letter-spacing:0.06em}
-.field-with-pin select,.field-with-pin input{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:all 0.2s;width:100%}
-.field-with-pin select:focus,.field-with-pin input:focus{border-color:#f97316;box-shadow:0 0 0 3px rgba(249,115,22,0.15)}
+.pinned-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:700;color:var(--yellow);
+  background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);padding:2px 8px;border-radius:12px;margin-left:6px;letter-spacing:0.06em}
+.field-with-pin select,.field-with-pin input{background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:all .2s;width:100%}
+.field-with-pin select:focus,.field-with-pin input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
 .field-with-pin.is-pinned select,.field-with-pin.is-pinned input{display:none}
-.pinned-val-display{font-size:12px;color:var(--yellow);background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-sm);padding:9px 14px;font-weight:600;display:none}
+.pinned-val-display{font-size:12px;color:var(--yellow);background:rgba(245,158,11,0.08);
+  border:1px solid rgba(245,158,11,0.25);border-radius:var(--radius-sm);padding:9px 14px;font-weight:600;display:none}
 .field-with-pin.is-pinned .pinned-val-display{display:block}
-.attribute{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:12px;transition:border-color 0.2s,opacity 0.2s}
+
+/* ── ATTRIBUTES ── */
+.attribute{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:12px;transition:border-color .2s,opacity .2s}
 .attribute.has-error{border-color:rgba(245,158,11,0.4)}
 .attribute.has-critical{border-color:var(--red)}
-.attribute.na-state{opacity:0.45}
+.attribute.na-state{opacity:.45}
 .attr-header{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:12px;margin-bottom:12px}
-.attr-letter{width:28px;height:28px;background:var(--surface);border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text2);font-family:'JetBrains Mono',monospace}
+.attr-letter{width:28px;height:28px;background:var(--surface);border:1px solid var(--border);border-radius:7px;
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text2);font-family:'JetBrains Mono',monospace}
 .attr-info{flex:1;min-width:0}
 .attr-name{font-size:14px;font-weight:700;margin-bottom:2px}
 .attr-desc{font-size:11px;color:var(--text2);line-height:1.4}
-.attr-points-badge{background:rgba(249,115,22,0.15);padding:5px 11px;border-radius:6px;font-size:11px;font-weight:700;color:#f97316;font-family:'JetBrains Mono',monospace;white-space:nowrap}
+.attr-points-badge{background:rgba(249,115,22,0.15);padding:5px 11px;border-radius:6px;font-size:11px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace;white-space:nowrap}
 .applicability-toggle{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:2px}
-.applicability-toggle button{padding:4px 8px;background:transparent;border:none;color:var(--text3);border-radius:5px;font-size:9px;font-weight:700;cursor:pointer;transition:all 0.15s;letter-spacing:0.04em;white-space:nowrap}
+.applicability-toggle button{padding:4px 8px;background:transparent;border:none;color:var(--text3);border-radius:5px;font-size:9px;font-weight:700;cursor:pointer;transition:all .15s;letter-spacing:0.04em;white-space:nowrap}
 .applicability-toggle button:hover{color:var(--text)}
-.applicability-toggle button.active.applicable{background:rgba(249,115,22,0.2);color:#f97316}
+.applicability-toggle button.active.applicable{background:rgba(249,115,22,0.2);color:var(--accent)}
 .applicability-toggle button.active.not-applicable{background:rgba(139,155,180,0.15);color:var(--text2)}
 .error-rows{display:flex;flex-direction:column;gap:6px}
-.error-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:8px;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:9px;transition:border-color 0.15s}
+.error-row{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:8px;
+  padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:9px;transition:border-color .15s}
 .error-row.error-mark{border-color:var(--yellow)}
 .error-row.critical-mark{border-color:var(--red)}
 .error-label{font-size:12px;color:var(--text);font-weight:500}
-.chip-btn{width:40px;height:30px;border-radius:7px;border:1px solid var(--border);background:linear-gradient(180deg,var(--surface2) 0%,var(--surface) 100%);color:var(--text3);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 0 #060912,0 6px 14px rgba(0,0,0,0.4);transition:all 0.12s ease-out;user-select:none}
-.chip-btn:hover{transform:translateY(-1px);box-shadow:0 5px 0 #060912,0 7px 16px rgba(0,0,0,0.4);color:var(--text)}
+.chip-btn{width:40px;height:30px;border-radius:7px;border:1px solid var(--border);
+  background:linear-gradient(180deg,var(--surface2) 0%,var(--surface) 100%);
+  color:var(--text3);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 0 #060912,0 6px 14px rgba(0,0,0,0.4);transition:all .12s ease-out;user-select:none}
+.chip-btn:hover{transform:translateY(-1px);color:var(--text)}
 .chip-btn:active{transform:translateY(2px);box-shadow:0 2px 0 #060912}
-.chip-btn.error-chip.active{background:linear-gradient(180deg,var(--yellow) 0%,#c97500 100%);border-color:#d97706;color:white;box-shadow:inset 0 2px 4px rgba(0,0,0,0.6);transform:translateY(2px)}
-.chip-btn.critical-chip.active{background:linear-gradient(180deg,var(--red) 0%,#b91c1c 100%);border-color:#dc2626;color:white;box-shadow:inset 0 2px 4px rgba(0,0,0,0.6);transform:translateY(2px)}
+.chip-btn.error-chip.active{background:linear-gradient(180deg,var(--yellow) 0%,#c97500 100%);border-color:#d97706;color:#fff;box-shadow:inset 0 2px 4px rgba(0,0,0,0.6);transform:translateY(2px)}
+.chip-btn.critical-chip.active{background:linear-gradient(180deg,var(--red) 0%,#b91c1c 100%);border-color:#dc2626;color:#fff;box-shadow:inset 0 2px 4px rgba(0,0,0,0.6);transform:translateY(2px)}
 .chip-btn.error-chip:hover:not(.active){color:var(--yellow);border-color:var(--yellow)}
 .chip-btn.critical-chip:hover:not(.active){color:var(--red);border-color:var(--red)}
+
+/* ── SUBMIT AREA ── */
 .submit-area{display:flex;align-items:center;gap:12px;margin-top:20px;flex-wrap:wrap}
-.btn-reset{padding:11px 20px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif}
+.btn-reset{padding:11px 20px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
 .btn-reset:hover{border-color:var(--red);color:var(--red)}
-.btn-submit{flex:1;padding:13px 24px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,#f97316,#fb923c);color:#fff;font-size:14px;font-weight:700;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px rgba(249,115,22,0.3);font-family:'Inter',sans-serif}
-.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(249,115,22,0.4)}
-.btn-submit:disabled{opacity:0.45;cursor:not-allowed;transform:none}
-.btn-finish{padding:13px 24px;border-radius:var(--radius-sm);border:1px solid var(--green);background:rgba(34,197,94,0.12);color:var(--green);font-size:14px;font-weight:700;letter-spacing:0.04em;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif}
-.btn-finish:hover{background:rgba(34,197,94,0.2);transform:translateY(-2px)}
-.btn-finish:disabled{opacity:0.45;cursor:not-allowed;transform:none}
-@keyframes spin{to{transform:rotate(360deg)}}
-.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.75s linear infinite;flex-shrink:0}
-.toast{position:fixed;bottom:24px;right:24px;z-index:999;padding:13px 20px;border-radius:11px;font-size:13px;font-weight:600;letter-spacing:0.02em;box-shadow:0 8px 32px rgba(0,0,0,0.35);transform:translateY(80px);opacity:0;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);max-width:360px;backdrop-filter:blur(12px)}
-.toast.show{transform:translateY(0);opacity:1}
-.toast.success{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:var(--green)}
-.toast.error{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:var(--red)}
-.toast.info{background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.3);color:#f97316}
-.submit-status{margin-top:12px;padding:10px;border-radius:8px;font-size:11px;text-align:center;display:none;font-weight:600}
-.submit-status.success{display:block;background:rgba(34,197,94,0.15);color:var(--green);border:1px solid rgba(34,197,94,0.3)}
-.submit-status.error{display:block;background:rgba(239,68,68,0.15);color:var(--red);border:1px solid rgba(239,68,68,0.3)}
-.submit-status.loading{display:block;background:rgba(249,115,22,0.12);color:#f97316;border:1px solid rgba(249,115,22,0.3)}
+.btn-main{flex:1;padding:13px 24px;border-radius:var(--radius-sm);border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;font-size:14px;font-weight:700;letter-spacing:0.04em;cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 20px var(--accent-glow);font-family:'Inter',sans-serif}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--accent-glow)}
+.btn-main:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-finish-main{padding:13px 24px;border-radius:var(--radius-sm);border:1px solid var(--green);
+  background:rgba(34,197,94,0.12);color:var(--green);font-size:14px;font-weight:700;letter-spacing:0.04em;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Inter',sans-serif}
+.btn-finish-main:hover{background:rgba(34,197,94,0.2);transform:translateY(-2px)}
+.btn-finish-main:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+/* ── BREAKDOWN ── */
 .breakdown-title{font-size:10px;color:var(--text2);margin-bottom:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase}
 .breakdown-item{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:12px;border-bottom:1px solid rgba(38,51,82,0.4)}
 .breakdown-item:last-child{border-bottom:none}
-.breakdown-item.na{opacity:0.4}
+.breakdown-item.na{opacity:.4}
 .breakdown-item.failed{color:var(--red)}
 .breakdown-item .points{font-weight:600;font-family:'JetBrains Mono',monospace;font-size:11px}
+
+/* ── SPINNER ── */
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .75s linear infinite;flex-shrink:0}
+.big-spinner{width:48px;height:48px;border:4px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 20px}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;right:24px;z-index:999;padding:13px 20px;border-radius:11px;font-size:13px;font-weight:600;
+  box-shadow:0 8px 32px rgba(0,0,0,0.35);transform:translateY(80px);opacity:0;transition:all .35s cubic-bezier(0.34,1.56,0.64,1);max-width:360px;backdrop-filter:blur(12px)}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:var(--green)}
+.toast.error{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:var(--red)}
+.toast.info{background:rgba(249,115,22,0.12);border:1px solid rgba(249,115,22,0.3);color:var(--accent)}
+
+/* ── STATUS BAR ── */
+.submit-status{margin-top:12px;padding:10px;border-radius:8px;font-size:11px;text-align:center;display:none;font-weight:600}
+.submit-status.success{display:block;background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.submit-status.error{display:block;background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.submit-status.loading{display:block;background:rgba(249,115,22,.12);color:var(--accent);border:1px solid rgba(249,115,22,.3)}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:32px;max-width:480px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.6);text-align:center}
+.modal-icon{width:64px;height:64px;margin:0 auto 20px;border-radius:50%;background:rgba(34,197,94,.15);border:2px solid rgba(34,197,94,.4);display:flex;align-items:center;justify-content:center;font-size:30px}
+.modal-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:8px}
+.modal-message{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:18px}
+.modal-timestamp{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--green);background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);border-radius:8px;padding:10px 14px;margin-bottom:18px;display:inline-block}
+.modal-recipients{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:18px;text-align:left}
+.modal-recipients-title{font-size:10px;font-weight:700;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.modal-recipients-list{font-size:12px;color:var(--text);line-height:1.7}
+.modal-recipients-list strong{color:var(--accent)}
+.modal-close-btn{padding:11px 28px;border-radius:9px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s}
+.modal-close-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px var(--accent-glow)}
+.modal-btn-row{display:flex;gap:10px;justify-content:center}
+.modal-cancel-btn{padding:11px 28px;border-radius:9px;border:1px solid var(--border);background:var(--surface3);color:var(--text2);font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif}
+.modal-result-box{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:18px;text-align:left;font-size:12px;line-height:1.8;color:var(--text)}
+.modal-result-box strong{color:var(--accent)}
+
 @media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar-col{position:static;height:auto;border-left:none;border-top:1px solid var(--border);order:-1;padding:16px}.score-ring-wrap{display:none}}
 @media(max-width:540px){.fields-row{grid-template-columns:1fr}.logo-sub,.live-badge{display:none}.topbar{padding:0 12px}}
 </style>
+<base target="_blank">
 </head>
 <body class="t-light">
+
+<!-- ── TOPBAR ── -->
 <div class="topbar">
   <div class="topbar-left">
-    <div class="logo-text-block">
-      <span class="logo-title">HOF Compliance Audit — DXB</span>
-      <span class="logo-sub">Dubai Team · CRM Quality Control</span>
+    <div>
+      <div class="logo-title">HOF Compliance Audit — DXB</div>
+      <div class="logo-sub">Dubai Team · CRM Quality Control</div>
     </div>
     <div class="live-badge"><div class="live-dot"></div>LIVE · SHEET SYNC</div>
   </div>
   <div class="topbar-right">
-    <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">
-      <span id="themeIcon">🌙</span> <span id="themeLabel">Dark Mode</span>
-    </button>
-    <button type="button" class="topbar-finish-btn" id="topbarFinishBtn" onclick="finishDayAudits()">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      Finish Day & Send Report
-    </button>
-    <button type="button" class="topbar-submit-btn" id="topbarSubmitBtn" onclick="submitAudit()">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-      Submit Audit
-    </button>
+    <button class="topbar-btn btn-theme" id="themeBtn" onclick="toggleTheme()">🌙 Dark Mode</button>
+    <button class="topbar-btn btn-finish" id="topFinishBtn" onclick="finishDayAudits()">✓ Finish Day &amp; Send Report</button>
+    <button class="topbar-btn btn-sendall" id="topSendAllBtn" onclick="sendAllReports()">✈ Send All Reports</button>
+    <button class="topbar-btn btn-submit" id="topSubmitBtn" onclick="submitAudit()">↑ Submit Audit</button>
   </div>
 </div>
+
+<!-- ── LAYOUT ── -->
 <div class="layout">
   <div class="main-col">
     <div class="page-header">
       <div class="page-title">🌍 DXB Team Quality Audit</div>
-      <div class="page-sub">Each attribute worth <strong>12.5 points</strong> (equalized scoring) · Click ❌ for minor error · ⛔ for critical error (forces score to 0) · Toggle N/A for inapplicable attributes · 📌 Pin fields for bulk audits · Click "Finish Day" button at end of day to send comprehensive performance report</div>
+      <div class="page-sub">Each attribute worth <strong>12.5 points</strong> (equalized scoring) · ❌ minor error · ⛔ critical error (forces score to 0) · Toggle N/A for inapplicable attributes · 📌 Pin fields for bulk audits · Click "Finish Day" at end of day to send the comprehensive performance report</div>
     </div>
+
+    <!-- Case Information -->
     <div class="section" id="sec-case">
       <div class="section-header" onclick="toggleSection('sec-case')">
         <div class="section-header-left">
           <span class="section-icon">◈</span>
-          <div>
-            <div class="section-title">Case Information</div>
-            <div class="section-subtitle">Consultant · Lead Stage · Auditor · Case Link · Notes</div>
-          </div>
+          <div><div class="section-title">Case Information</div><div class="section-subtitle">Consultant · Lead Stage · Auditor · Case Link · Notes</div></div>
         </div>
         <span class="chevron">▾</span>
       </div>
@@ -189,7 +271,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
               <label>Consultant Name <span class="req">*</span><span class="pinned-badge" id="pin-badge-consultant" style="display:none">📌 PINNED</span></label>
               <button type="button" class="pin-btn" id="pin-btn-consultant" onclick="togglePin('consultant')">📌 Pin</button>
             </div>
-            <select id="consultant" required></select>
+            <select id="consultant"></select>
             <div class="pinned-val-display" id="pin-display-consultant"></div>
           </div>
           <div class="field-with-pin" id="pin-wrap-auditor">
@@ -197,7 +279,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
               <label>Auditor Name <span class="req">*</span><span class="pinned-badge" id="pin-badge-auditor" style="display:none">📌 PINNED</span></label>
               <button type="button" class="pin-btn" id="pin-btn-auditor" onclick="togglePin('auditor')">📌 Pin</button>
             </div>
-            <input type="text" id="auditor" placeholder="Enter your name (Aqsa Mehmood)" required/>
+            <input type="text" id="auditor" placeholder="Enter your name (e.g. Aqsa Mehmood)"/>
             <div class="pinned-val-display" id="pin-display-auditor"></div>
           </div>
         </div>
@@ -207,7 +289,7 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
               <label>Lead Stage <span class="req">*</span><span class="pinned-badge" id="pin-badge-leadStage" style="display:none">📌 PINNED</span></label>
               <button type="button" class="pin-btn" id="pin-btn-leadStage" onclick="togglePin('leadStage')">📌 Pin</button>
             </div>
-            <select id="leadStage" required>
+            <select id="leadStage">
               <option value="">— Select Lead Stage —</option>
               <option>No Answer</option><option>Schedule Call Back</option>
               <option>Qualified CAN</option><option>Qualified AUS</option>
@@ -222,23 +304,22 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
           </div>
           <div class="field">
             <label>Case Link (HubSpot URL) <span class="req">*</span></label>
-            <input type="url" id="caseLink" placeholder="https://app.hubspot.com/..." required/>
+            <input type="url" id="caseLink" placeholder="https://app.hubspot.com/..."/>
           </div>
         </div>
         <div class="field">
           <label>Comments / Observations</label>
-          <textarea id="comments" placeholder="Optional notes..."></textarea>
+          <textarea id="comments" placeholder="Optional notes about this case..."></textarea>
         </div>
       </div>
     </div>
+
+    <!-- Audit Attributes -->
     <div class="section" id="sec-attributes">
       <div class="section-header" onclick="toggleSection('sec-attributes')">
         <div class="section-header-left">
           <span class="section-icon">⚖</span>
-          <div>
-            <div class="section-title">Audit Attributes (Equal 12.5 Points Each)</div>
-            <div class="section-subtitle">Call · WhatsApp · Email · Documentation · Lead Stage · Deal · Task · Follow Up</div>
-          </div>
+          <div><div class="section-title">Audit Attributes — 12.5 Points Each</div><div class="section-subtitle">Call · WhatsApp · Email · Documentation · Lead Stage · Deal · Task · Follow Up</div></div>
         </div>
         <span class="chevron">▾</span>
       </div>
@@ -246,112 +327,130 @@ body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;back
         <div id="attributesContainer"></div>
       </div>
     </div>
+
     <div class="submit-area">
       <button type="button" class="btn-reset" onclick="resetForm()">↺ Reset Form</button>
-      <button type="button" class="btn-submit" id="submitBtn" onclick="submitAudit()">⬆ Submit to Sheet</button>
-      <button type="button" class="btn-finish" id="finishBtn" onclick="finishDayAudits()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        Finish Day & Send Report
-      </button>
+      <button type="button" class="btn-main" id="submitBtn" onclick="submitAudit()">⬆ Submit to Sheet</button>
+      <button type="button" class="btn-finish-main" id="finishBtn" onclick="finishDayAudits()">✓ Finish Day &amp; Send Report</button>
     </div>
     <div class="submit-status" id="submitStatus"></div>
   </div>
+
+  <!-- SIDEBAR -->
   <div class="sidebar-col">
     <div class="score-header">
       <div class="score-label-top">Total Score</div>
       <div class="score-big" id="scoreValue">100</div>
-      <div class="score-denom">/ 100</div>
+      <div style="font-size:12px;color:var(--text2)">/ 100</div>
       <div class="score-ring-wrap">
         <svg class="score-ring" width="70" height="70" viewBox="0 0 70 70">
           <circle class="ring-bg" cx="35" cy="35" r="29"/>
           <circle class="ring-fg" id="ringFg" cx="35" cy="35" r="29" stroke-dasharray="182.2" stroke-dashoffset="0"/>
         </svg>
       </div>
-      <div style="margin-top:8px;font-size:11px;font-weight:700;color:#f97316;letter-spacing:0.06em;" id="scoreBand">PERFECT</div>
-      <div style="margin-top:4px;font-size:10px;color:var(--text3);" id="scoreTagline">All criteria passing</div>
+      <div style="margin-top:8px;font-size:11px;font-weight:700;color:var(--accent);letter-spacing:0.06em" id="scoreBand">PERFECT</div>
+      <div style="margin-top:4px;font-size:10px;color:var(--text3)" id="scoreTagline">All criteria passing</div>
     </div>
     <div class="breakdown-title">Score Breakdown</div>
     <div id="breakdown"></div>
     <div class="critical-banner" id="criticalBanner">⛔ CRITICAL ERROR — Score forced to 0</div>
   </div>
 </div>
+
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box" id="modalBox"></div>
+</div>
 <div class="toast" id="toast"></div>
+
 <script>
-// ============== CONFIG ==============
-// 🚨 IMPORTANT: Update this URL after deploying DXB_Audit.gs
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx8_nkU6pEsfT0HiiHG4MyY4CQHysI3bUqVKyaGlruxCHKddIuhV7_LG2vgGwEFr4iS/exec';
+// ══════════════════════════════════════════
+// CONFIG — new DXB Apps Script URL
+// ══════════════════════════════════════════
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz-Rxr8T6RSyQ0xOZSQ2IR84b9XX39KJfpYajBBnl34oU4Q1w_SFpLutAZ4kqtXV20i6g/exec';
+const AUDITOR_EMAIL   = 'aqsa@hofmigration.com';
 
-// ============== DXB TEAM CONSULTANTS ==============
+// ══ DXB TEAM CONSULTANTS ══
 const CONSULTANTS = [
-  { name: 'Jully',              email: 'Jully@hofmigration.com',        manager: 'Jully@hofmigration.com',    team: 'Lady Warriors' },
-  { name: 'Akanksha Yadav',     email: 'Akanksha@hofmigration.com',    manager: 'Jully@hofmigration.com',    team: 'Lady Warriors' },
-  { name: 'Ambreen Syed',       email: 'Ambreen@hofmigration.com',     manager: 'Jully@hofmigration.com',    team: 'Lady Warriors' },
-  { name: 'Insha Khan',         email: 'Insha@hofmigration.com',       manager: 'Jully@hofmigration.com',    team: 'Lady Warriors' },
-  { name: 'Miaade',             email: 'Miaade@hofmigration.com',      manager: 'aqsa@hofmigration.com',     team: 'Arabic Team' },
-  { name: 'Patrecia',           email: 'Patrecia@hofmigration.com',    manager: 'aqsa@hofmigration.com',     team: 'Arabic Team' },
-  { name: 'Rahul',              email: 'Rahul@hofmigration.com',       manager: 'Rahul@hofmigration.com',    team: 'Spartans' },
-  { name: 'Abhi V',             email: 'Abhi@hofmigration.com',        manager: 'Rahul@hofmigration.com',    team: 'Spartans' },
-  { name: 'Arya',               email: 'Arya@hofmigration.com',        manager: 'Rahul@hofmigration.com',    team: 'Spartans' },
-  { name: 'Wahab',              email: 'Wahab@hofmigration.com',       manager: 'Wahab@hofmigration.com',    team: 'Mingle Masters' },
-  { name: 'Asfandiyar Malik',   email: 'Asfandiyar@hofmigration.com',  manager: 'Wahab@hofmigration.com',    team: 'Mingle Masters' },
-  { name: 'Kawleen Kaur',       email: 'Kawleen@hofmigration.com',     manager: 'Wahab@hofmigration.com',    team: 'Mingle Masters' },
-  { name: 'Komal Zahid',        email: 'Komal@hofmigration.com',       manager: 'Wahab@hofmigration.com',    team: 'Mingle Masters' },
-  { name: 'Muhammad Jalal',     email: 'Jalal@hofmigration.com',       manager: 'Wahab@hofmigration.com',    team: 'Mingle Masters' },
-  { name: 'Khurram Iqbal',      email: 'Khurram@hofmigration.com',     manager: 'Waleed@hofmigration.com',   team: 'Team Waleed (CEO)' },
-  { name: 'Ronalyn Aguilar',    email: 'Ronalyn@hofmigration.com',     manager: 'Waleed@hofmigration.com',   team: 'Team Waleed (CEO)' },
-  { name: 'Aleen Naeem',        email: 'Aleen@hofmigration.com',       manager: 'Waleed@hofmigration.com',   team: 'Team Waleed (CEO)' },
-  { name: 'Ayesha Anum',        email: 'Ayesha@hofmigration.com',      manager: 'Waleed@hofmigration.com',   team: 'Team Waleed (CEO)' },
-  { name: 'Madah Khan',         email: 'Madah@hofmigration.com',       manager: 'Waleed@hofmigration.com',   team: 'Team Waleed (CEO)' }
+  { name:'Jully',              email:'Jully@hofmigration.com',        manager:'Jully@hofmigration.com',    team:'Lady Warriors' },
+  { name:'Akanksha Yadav',     email:'Akanksha@hofmigration.com',     manager:'Jully@hofmigration.com',    team:'Lady Warriors' },
+  { name:'Ambreen Syed',       email:'Ambreen@hofmigration.com',      manager:'Jully@hofmigration.com',    team:'Lady Warriors' },
+  { name:'Insha Khan',         email:'Insha@hofmigration.com',        manager:'Jully@hofmigration.com',    team:'Lady Warriors' },
+  { name:'Miaade',             email:'Miaade@hofmigration.com',       manager:'aqsa@hofmigration.com',     team:'Arabic Team' },
+  { name:'Patrecia',           email:'Patrecia@hofmigration.com',     manager:'aqsa@hofmigration.com',     team:'Arabic Team' },
+  { name:'Rahul',              email:'Rahul@hofmigration.com',        manager:'Rahul@hofmigration.com',    team:'Spartans' },
+  { name:'Abhi V',             email:'Abhi@hofmigration.com',         manager:'Rahul@hofmigration.com',    team:'Spartans' },
+  { name:'Arya',               email:'Arya@hofmigration.com',         manager:'Rahul@hofmigration.com',    team:'Spartans' },
+  { name:'Wahab',              email:'Wahab@hofmigration.com',        manager:'Wahab@hofmigration.com',    team:'Mingle Masters' },
+  { name:'Asfandiyar Malik',   email:'Asfandiyar@hofmigration.com',   manager:'Wahab@hofmigration.com',    team:'Mingle Masters' },
+  { name:'Kawleen Kaur',       email:'Kawleen@hofmigration.com',      manager:'Wahab@hofmigration.com',    team:'Mingle Masters' },
+  { name:'Komal Zahid',        email:'Komal@hofmigration.com',        manager:'Wahab@hofmigration.com',    team:'Mingle Masters' },
+  { name:'Muhammad Jalal',     email:'Jalal@hofmigration.com',        manager:'Wahab@hofmigration.com',    team:'Mingle Masters' },
+  { name:'Khurram Iqbal',      email:'Khurram@hofmigration.com',      manager:'Waleed@hofmigration.com',   team:'Team Waleed (CEO)' },
+  { name:'Ronalyn Aguilar',    email:'Ronalyn@hofmigration.com',      manager:'Waleed@hofmigration.com',   team:'Team Waleed (CEO)' },
+  { name:'Aleen Naeem',        email:'Aleen@hofmigration.com',        manager:'Waleed@hofmigration.com',   team:'Team Waleed (CEO)' },
+  { name:'Ayesha Anum',        email:'Ayesha@hofmigration.com',       manager:'Waleed@hofmigration.com',   team:'Team Waleed (CEO)' },
+  { name:'Madah Khan',         email:'Madah@hofmigration.com',        manager:'Waleed@hofmigration.com',   team:'Team Waleed (CEO)' }
 ];
 
-// ============== EQUALIZED ATTRIBUTES (12.5 points each) ==============
+// ══ ATTRIBUTES ══
 const ATTRIBUTES = [
-  { id: 'call',          letter: 'A', name: 'Call Error',          icon: '📞', weight: 12.5,
-    desc: 'Call logged in HubSpot with proper description',
-    errors: ['Call Logged', 'Call Description'] },
-  { id: 'whatsapp',      letter: 'B', name: 'WhatsApp Error',      icon: '💬', weight: 12.5,
-    desc: 'WhatsApp used and logged when required',
-    errors: ['WhatsApp Used (when required)', 'WhatsApp Logged in HubSpot', 'WhatsApp Note (if unavailable)'] },
-  { id: 'email',         letter: 'C', name: 'Email Error',         icon: '✉️', weight: 12.5,
-    desc: 'Email sent professionally with proper signature',
-    errors: ['Sent (when required)', 'Professional (no AI/emojis)', 'Company Signature Used'] },
-  { id: 'documentation', letter: 'D', name: 'Documentation Error', icon: '📝', weight: 12.5,
-    desc: 'Description, properties, and outcome recorded',
-    errors: ['Description / Call Notes added', 'All Required Properties Completed', 'Outcome'] },
-  { id: 'leadStageErr',  letter: 'E', name: 'Lead Stage Error',    icon: '🏷️', weight: 12.5,
-    desc: 'Lead stage updated correctly per SOP',
-    errors: ['Lead Stage Updated After Contact', 'Qualified Stage Marked', 'Correct Lead Stage Used (per SOP)'] },
-  { id: 'deal',          letter: 'F', name: 'Deal Error',          icon: '⚡', weight: 12.5,
-    desc: 'Deal created in correct pipeline if qualified',
-    errors: ['Deal Created (if qualified)', 'Correct Pipeline Selected'] },
-  { id: 'task',          letter: 'G', name: 'Task Error',          icon: '✅', weight: 12.5,
-    desc: 'Task created, completed timely, type matches request',
-    errors: ['Task Created (for callback/follow-up)', 'Task Completed Timely', 'Task Type Matches Request'] },
-  { id: 'followup',      letter: 'H', name: 'Follow-up Error',     icon: '🔔', weight: 12.5,
-    desc: 'Timely contact made with the lead',
-    errors: ['No Timely Contact'] }
+  { id:'call',          letter:'A', name:'Call Error',          icon:'📞', weight:12.5,
+    desc:'Call logged in HubSpot with proper description',
+    errors:['Call Logged','Call Description'] },
+  { id:'whatsapp',      letter:'B', name:'WhatsApp Error',      icon:'💬', weight:12.5,
+    desc:'WhatsApp used and logged when required',
+    errors:['WhatsApp Used (when required)','WhatsApp Logged in HubSpot','WhatsApp Note (if unavailable)'] },
+  { id:'email',         letter:'C', name:'Email Error',         icon:'✉️', weight:12.5,
+    desc:'Email sent professionally with proper signature',
+    errors:['Sent (when required)','Professional (no AI/emojis)','Company Signature Used'] },
+  { id:'documentation', letter:'D', name:'Documentation Error', icon:'📝', weight:12.5,
+    desc:'Description, properties, and outcome recorded',
+    errors:['Description / Call Notes added','All Required Properties Completed','Outcome'] },
+  { id:'leadStageErr',  letter:'E', name:'Lead Stage Error',    icon:'🏷️', weight:12.5,
+    desc:'Lead stage updated correctly per SOP',
+    errors:['Lead Stage Updated After Contact','Qualified Stage Marked','Correct Lead Stage Used (per SOP)'] },
+  { id:'deal',          letter:'F', name:'Deal Error',          icon:'⚡', weight:12.5,
+    desc:'Deal created in correct pipeline if qualified',
+    errors:['Deal Created (if qualified)','Correct Pipeline Selected'] },
+  { id:'task',          letter:'G', name:'Task Error',          icon:'✅', weight:12.5,
+    desc:'Task created, completed timely, type matches request',
+    errors:['Task Created (for callback/follow-up)','Task Completed Timely','Task Type Matches Request'] },
+  { id:'followup',      letter:'H', name:'Follow-up Error',     icon:'🔔', weight:12.5,
+    desc:'Timely contact made with the lead',
+    errors:['No Timely Contact'] }
 ];
 
-// ============== STATE ==============
+// ══ STATE ══
 const state = {};
 ATTRIBUTES.forEach(a => {
   state[a.id] = { applicable: true, marks: {} };
   a.errors.forEach(e => state[a.id].marks[e] = null);
 });
-const pins = { consultant:{pinned:false,value:''}, leadStage:{pinned:false,value:''}, auditor:{pinned:false,value:''} };
-let isDark = false;
-let isSubmitting = false;
-let isFinishing = false;
+const pins = {
+  consultant: { pinned:false, value:'' },
+  leadStage:  { pinned:false, value:'' },
+  auditor:    { pinned:false, value:'' }
+};
+let isDark = false, isSubmitting = false, isFinishing = false;
+let pendingFinish = null;
 
-// ============== THEME ==============
+// ══ CORE: GET request to Apps Script (only reliable cross-origin method) ══
+function callAppsScript(params) {
+  const url = APPS_SCRIPT_URL + '?' + Object.entries(params)
+    .map(([k, v]) => encodeURIComponent(k) + '=' + encodeURIComponent(String(v)))
+    .join('&');
+  return fetch(url, { method: 'GET' });
+}
+
+// ══ THEME ══
 function toggleTheme() {
   isDark = !isDark;
   document.body.className = isDark ? '' : 't-light';
-  document.getElementById('themeIcon').textContent  = isDark ? '☀️' : '🌙';
-  document.getElementById('themeLabel').textContent = isDark ? 'Light Mode' : 'Dark Mode';
+  document.getElementById('themeBtn').textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
 }
 
-// ============== PIN SYSTEM ==============
+// ══ PIN ══
 function togglePin(fieldId) {
   const el    = document.getElementById(fieldId);
   const wrap  = document.getElementById('pin-wrap-' + fieldId);
@@ -365,15 +464,13 @@ function togglePin(fieldId) {
     p.value = val; p.pinned = true;
     disp.textContent = val;
     wrap.classList.add('is-pinned');
-    btn.classList.add('pinned');
-    btn.textContent = '📌 Unpin';
+    btn.classList.add('pinned'); btn.textContent = '📌 Unpin';
     badge.style.display = 'inline-flex';
     showToast('📌 ' + fieldId + ' pinned.', 'info');
   } else {
     p.pinned = false; p.value = '';
     wrap.classList.remove('is-pinned');
-    btn.classList.remove('pinned');
-    btn.textContent = '📌 Pin';
+    btn.classList.remove('pinned'); btn.textContent = '📌 Pin';
     badge.style.display = 'none';
     disp.textContent = '';
     showToast('🔓 ' + fieldId + ' unpinned.', 'info');
@@ -381,44 +478,47 @@ function togglePin(fieldId) {
 }
 function getPinned(id) { return pins[id].pinned ? pins[id].value : document.getElementById(id).value; }
 
-// ============== INIT ==============
+// ══ INIT ══
 function init() {
   const sel = document.getElementById('consultant');
+  sel.innerHTML = '<option value="">— Select Consultant —</option>';
   CONSULTANTS.forEach(c => {
     const o = document.createElement('option');
-    o.value = c.name; o.textContent = c.name; sel.appendChild(o);
+    o.value = c.name; o.textContent = c.name + ' · ' + c.team; sel.appendChild(o);
   });
   renderAttributes();
   updateScore();
 }
 
+// ══ RENDER ATTRIBUTES ══
 function renderAttributes() {
   const container = document.getElementById('attributesContainer');
   container.innerHTML = '';
   ATTRIBUTES.forEach(attr => {
     const div = document.createElement('div');
-    div.className = 'attribute'; div.id = `attr-${attr.id}`;
-    div.innerHTML = `
-      <div class="attr-header">
-        <div class="attr-letter">${attr.letter}</div>
-        <div class="attr-info">
-          <div class="attr-name">${attr.icon} ${attr.name}</div>
-          <div class="attr-desc">${attr.desc}</div>
-        </div>
-        <div class="attr-points-badge" id="points-${attr.id}">${attr.weight} / ${attr.weight}</div>
-        <div class="applicability-toggle">
-          <button class="active applicable" data-attr="${attr.id}" data-app="true">✓ APP</button>
-          <button data-attr="${attr.id}" data-app="false">— N/A</button>
-        </div>
-      </div>
-      <div class="error-rows">
-        ${attr.errors.map((e, i) => `
-          <div class="error-row" id="row-${attr.id}-${i}">
-            <div class="error-label">${e}</div>
-            <button class="chip-btn error-chip" data-attr="${attr.id}" data-err="${e}" data-mark="error" title="Minor error - partial deduction">❌</button>
-            <button class="chip-btn critical-chip" data-attr="${attr.id}" data-err="${e}" data-mark="critical" title="Critical error - score forced to 0">⛔</button>
-          </div>`).join('')}
-      </div>`;
+    div.className = 'attribute'; div.id = 'attr-' + attr.id;
+    div.innerHTML =
+      '<div class="attr-header">' +
+        '<div class="attr-letter">' + attr.letter + '</div>' +
+        '<div class="attr-info">' +
+          '<div class="attr-name">' + attr.icon + ' ' + attr.name + '</div>' +
+          '<div class="attr-desc">' + attr.desc + '</div>' +
+        '</div>' +
+        '<div class="attr-points-badge" id="points-' + attr.id + '">' + attr.weight + ' / ' + attr.weight + '</div>' +
+        '<div class="applicability-toggle">' +
+          '<button class="active applicable" data-attr="' + attr.id + '" data-app="true">✓ APP</button>' +
+          '<button data-attr="' + attr.id + '" data-app="false">— N/A</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="error-rows">' +
+        attr.errors.map((e, i) =>
+          '<div class="error-row" id="row-' + attr.id + '-' + i + '">' +
+            '<div class="error-label">' + e + '</div>' +
+            '<button class="chip-btn error-chip" data-attr="' + attr.id + '" data-err="' + e + '" data-mark="error" title="Minor error">❌</button>' +
+            '<button class="chip-btn critical-chip" data-attr="' + attr.id + '" data-err="' + e + '" data-mark="critical" title="Critical error">⛔</button>' +
+          '</div>'
+        ).join('') +
+      '</div>';
     container.appendChild(div);
   });
   document.querySelectorAll('.applicability-toggle button').forEach(b =>
@@ -430,7 +530,7 @@ function renderAttributes() {
 function toggleApplicability(attrId, applicable) {
   state[attrId].applicable = applicable;
   if (!applicable) Object.keys(state[attrId].marks).forEach(k => state[attrId].marks[k] = null);
-  const card = document.getElementById(`attr-${attrId}`);
+  const card = document.getElementById('attr-' + attrId);
   card.querySelectorAll('.applicability-toggle button').forEach(b => {
     b.classList.toggle('active', b.dataset.app === String(applicable));
     b.classList.toggle('applicable', b.dataset.app === 'true');
@@ -438,7 +538,7 @@ function toggleApplicability(attrId, applicable) {
   });
   card.classList.toggle('na-state', !applicable);
   card.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
-  card.querySelectorAll('.error-row').forEach(r => r.classList.remove('error-mark', 'critical-mark'));
+  card.querySelectorAll('.error-row').forEach(r => r.classList.remove('error-mark','critical-mark'));
   refreshAttr(attrId); updateScore();
 }
 
@@ -450,16 +550,16 @@ function toggleMark(attrId, errName, mark) {
 
 function refreshAttr(attrId) {
   const attr = ATTRIBUTES.find(a => a.id === attrId);
-  const card = document.getElementById(`attr-${attrId}`);
+  const card = document.getElementById('attr-' + attrId);
   let hasErr = false, hasCrit = false;
   attr.errors.forEach((e, i) => {
     const mark = state[attrId].marks[e];
-    const row  = document.getElementById(`row-${attrId}-${i}`);
+    const row  = document.getElementById('row-' + attrId + '-' + i);
     row.querySelector('.error-chip').classList.toggle('active', mark === 'error');
     row.querySelector('.critical-chip').classList.toggle('active', mark === 'critical');
     row.classList.toggle('error-mark', mark === 'error');
     row.classList.toggle('critical-mark', mark === 'critical');
-    if (mark === 'error') hasErr = true;
+    if (mark === 'error')    hasErr  = true;
     if (mark === 'critical') hasCrit = true;
   });
   card.classList.toggle('has-error', hasErr && !hasCrit);
@@ -476,16 +576,14 @@ function attrStatus(id) {
 
 function calcScore() {
   if (ATTRIBUTES.some(a => attrStatus(a.id) === 'critical'))
-    return { score: 0, hasCritical: true, reason: 'Critical error detected' };
+    return { score:0, hasCritical:true, reason:'Critical error detected' };
   const errored = ATTRIBUTES.filter(a => attrStatus(a.id) === 'error');
   if (errored.length >= 4)
-    return { score: 0, hasCritical: true, reason: errored.length + ' attributes with minor errors (4+ = critical violation)' };
-  const appl  = ATTRIBUTES.filter(a => state[a.id].applicable);
-  const total = appl.length;
-  if (!total) return { score: 0, hasCritical: false, reason: 'No applicable attributes' };
+    return { score:0, hasCritical:true, reason: errored.length + ' attributes with minor errors (4+ = critical)' };
+  const appl = ATTRIBUTES.filter(a => state[a.id].applicable);
+  if (!appl.length) return { score:0, hasCritical:false, reason:'No applicable attributes' };
   const passed = appl.filter(a => attrStatus(a.id) === 'pass').length;
-  const score = (passed / total) * 100;
-  return { score: Math.round(score * 10) / 10, hasCritical: false, reason: '' };
+  return { score: Math.round((passed / appl.length) * 1000) / 10, hasCritical:false, reason:'' };
 }
 
 function calcViolation() {
@@ -493,13 +591,10 @@ function calcViolation() {
   ATTRIBUTES.forEach(a => {
     if (!state[a.id].applicable) return;
     const s = attrStatus(a.id);
-    if (s === 'critical') {
-      pts += ['leadStageErr','deal','documentation'].includes(a.id) ? 10 : 
-             ['call','task','followup'].includes(a.id) ? 7 : 5;
-    } else if (s === 'error') {
-      pts += ['leadStageErr','deal','documentation'].includes(a.id) ? 5 : 
-             ['call','task','followup'].includes(a.id) ? 3 : 2;
-    }
+    const heavy = ['leadStageErr','deal','documentation'].includes(a.id);
+    const mid   = ['call','task','followup'].includes(a.id);
+    if (s === 'critical') pts += heavy ? 10 : mid ? 7 : 5;
+    if (s === 'error')    pts += heavy ? 5  : mid ? 3 : 2;
   });
   return pts;
 }
@@ -509,7 +604,7 @@ function severity(score, hasCritical) {
   if (score >= 90)                return { label:'EXCELLENT',          tagline:'All criteria met' };
   if (score >= 75)                return { label:'GOOD',               tagline:'Minor issues identified' };
   if (score >= 60)                return { label:'NEEDS IMPROVEMENT',  tagline:'Multiple issues found' };
-  return                                 { label:'POOR PERFORMANCE',    tagline:'Significant compliance gaps' };
+  return                                 { label:'POOR PERFORMANCE',   tagline:'Significant compliance gaps' };
 }
 
 function updateScore() {
@@ -521,26 +616,19 @@ function updateScore() {
   document.getElementById('scoreBand').textContent    = sev.label;
   document.getElementById('scoreTagline').textContent = sev.tagline;
   document.getElementById('criticalBanner').classList.toggle('active', res.hasCritical);
-  
   const ring = document.getElementById('ringFg');
-  if (ring) {
-    ring.style.strokeDashoffset = 182.2 - (res.score / 100) * 182.2;
-    ring.style.stroke = res.score >= 90 ? 'var(--green)' : res.score >= 70 ? 'var(--yellow)' : 'var(--red)';
-  }
-  
+  ring.style.strokeDashoffset = 182.2 - (res.score / 100) * 182.2;
+  ring.style.stroke = res.score >= 90 ? 'var(--green)' : res.score >= 70 ? 'var(--yellow)' : 'var(--red)';
   document.getElementById('breakdown').innerHTML = ATTRIBUTES.map(a => {
     const s = attrStatus(a.id);
-    let pts, max = 12.5, cls = '';
-    if (s === 'na') { pts = 'N/A'; max = 'N/A'; cls = 'na'; }
-    else { pts = s === 'pass' ? 12.5 : 0; if (s !== 'pass') cls = 'failed'; }
-    return `<div class="breakdown-item ${cls}"><div>${a.name}</div><div class="points">${pts}/${max}</div></div>`;
+    const pts = s === 'na' ? 'N/A' : s === 'pass' ? 12.5 : 0;
+    const max = s === 'na' ? 'N/A' : 12.5;
+    return '<div class="breakdown-item' + (s === 'na' ? ' na' : s !== 'pass' ? ' failed' : '') + '">' +
+      '<div>' + a.name + '</div><div class="points">' + pts + '/' + max + '</div></div>';
   }).join('');
-  
   ATTRIBUTES.forEach(a => {
-    const el2 = document.getElementById(`points-${a.id}`);
-    const s   = attrStatus(a.id);
-    if (s === 'na') { el2.textContent = 'N/A'; return; }
-    el2.textContent = (s === 'pass' ? 12.5 : 0) + ' / 12.5';
+    const s = attrStatus(a.id);
+    document.getElementById('points-' + a.id).textContent = s === 'na' ? 'N/A' : (s === 'pass' ? 12.5 : 0) + ' / 12.5';
   });
 }
 
@@ -548,178 +636,301 @@ function toggleSection(id) { document.getElementById(id).classList.toggle('colla
 
 function showToast(msg, type = 'info') {
   const t = document.getElementById('toast');
-  t.textContent = msg; t.className = `toast ${type} show`;
+  t.textContent = msg; t.className = 'toast ' + type + ' show';
   setTimeout(() => t.classList.remove('show'), 4000);
 }
-
 function showStatus(msg, type) {
   const el = document.getElementById('submitStatus');
   el.textContent = msg; el.className = 'submit-status ' + type;
 }
 
+// ══ SUBMIT ══
 function setSubmitting(on) {
   isSubmitting = on;
-  const mainBtn = document.getElementById('submitBtn');
-  const topBtn  = document.getElementById('topbarSubmitBtn');
-  mainBtn.disabled = on; topBtn.disabled = on;
-  mainBtn.innerHTML = on
-    ? '<div class="spinner"></div> Submitting...'
-    : '⬆ Submit to Sheet';
-  topBtn.innerHTML = on
-    ? '<div class="spinner" style="border-color:rgba(255,255,255,0.3);border-top-color:#fff;width:11px;height:11px;"></div> Submitting...'
-    : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg> Submit Audit';
+  ['submitBtn','topSubmitBtn'].forEach(id => {
+    const b = document.getElementById(id);
+    b.disabled = on;
+    b.innerHTML = on
+      ? '<div class="spinner"></div> Saving...'
+      : (id === 'submitBtn' ? '⬆ Submit to Sheet' : '↑ Submit Audit');
+  });
 }
 
-function setFinishing(on) {
-  isFinishing = on;
-  const mainBtn = document.getElementById('finishBtn');
-  const topBtn  = document.getElementById('topbarFinishBtn');
-  mainBtn.disabled = on; topBtn.disabled = on;
-  mainBtn.innerHTML = on
-    ? '<div class="spinner" style="border-color:rgba(34,197,94,0.3);border-top-color:var(--green);"></div> Sending Report...'
-    : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Finish Day & Send Report';
-  topBtn.innerHTML = on
-    ? '<div class="spinner" style="border-color:rgba(34,197,94,0.3);border-top-color:var(--green);width:11px;height:11px;"></div> Sending Report...'
-    : '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Finish Day & Send Report';
-}
-
-// ============== SUBMIT ==============
 async function submitAudit() {
   if (isSubmitting) return;
   const consultant = getPinned('consultant');
   const auditor    = getPinned('auditor');
   const leadStage  = getPinned('leadStage');
-  const caseLink   = document.getElementById('caseLink').value;
-  const comments   = document.getElementById('comments').value;
-  
+  const caseLink   = document.getElementById('caseLink').value.trim();
+  const comments   = document.getElementById('comments').value.trim();
+
   if (!consultant || !auditor || !leadStage || !caseLink) {
     showToast('⚠️ Fill in Consultant, Auditor, Lead Stage, and Case Link.', 'error'); return;
   }
-  
-  const res = calcScore();
-  const sev = severity(res.score, res.hasCritical);
-  const vio = calcViolation();
+
+  const res  = calcScore();
+  const sev  = severity(res.score, res.hasCritical);
+  const vio  = calcViolation();
   const attrVals = {};
-  
+
   ATTRIBUTES.forEach(a => {
     const s = state[a.id];
     if (!s.applicable) { attrVals[a.id] = 'N/A'; return; }
     const crit = a.errors.find(e => s.marks[e] === 'critical');
     if (crit) { attrVals[a.id] = '⛔ ' + crit; return; }
-    const err = a.errors.find(e => s.marks[e] === 'error');
-    if (err)  { attrVals[a.id] = '❌ ' + err; return; }
+    const err  = a.errors.find(e => s.marks[e] === 'error');
+    if (err)  { attrVals[a.id] = '❌ ' + err;  return; }
     attrVals[a.id] = '';
   });
-  
-  const cObj  = CONSULTANTS.find(c => c.name === consultant);
-  const email = cObj ? cObj.email : '';
-  const manager = cObj ? cObj.manager : '';
-  const team = cObj ? cObj.team : '';
-  
-  const breakdown = ATTRIBUTES.map(a => {
-    const s   = attrStatus(a.id);
-    const max = state[a.id].applicable ? 12.5 : 'N/A';
-    const earn = s === 'pass' ? 12.5 : s === 'na' ? 'N/A' : 0;
-    return `${a.name}|${s}|${earn}|${max}`;
-  }).join(';');
-  
-  const payload = {
-    consultant, consultantEmail: email, managerEmail: manager, team: team,
+
+  const cObj = CONSULTANTS.find(c => c.name === consultant);
+
+  const params = {
+    consultant,
+    consultantEmail:    cObj ? cObj.email   : '',
+    managerEmail:       cObj ? cObj.manager : '',
+    team:               cObj ? cObj.team    : '',
     auditDate:          new Date().toLocaleDateString('en-GB'),
     leadStage,
-    callError:          attrVals.call,
-    whatsappError:      attrVals.whatsapp,
-    emailError:         attrVals.email,
-    documentationError: attrVals.documentation,
-    leadStageError:     attrVals.leadStageErr,
-    dealError:          attrVals.deal,
-    taskError:          attrVals.task,
-    followUp:           attrVals.followup,
-    comments, caseLink,
+    callError:          attrVals.call          || '',
+    whatsappError:      attrVals.whatsapp      || '',
+    emailError:         attrVals.email         || '',
+    documentationError: attrVals.documentation || '',
+    leadStageError:     attrVals.leadStageErr  || '',
+    dealError:          attrVals.deal          || '',
+    taskError:          attrVals.task          || '',
+    followUp:           attrVals.followup      || '',
+    comments,
+    caseLink,
     totalScore:         res.score,
     auditor,
-    auditorEmail:       'aqsa@hofmigration.com',
+    auditorEmail:       AUDITOR_EMAIL,
     violationPoints:    vio,
-    severity:           sev.label,
-    criticalReason:     res.hasCritical ? res.reason : '',
-    breakdownDetails:   breakdown
+    severity:           sev.label
   };
-  
+
   setSubmitting(true);
-  showStatus('⏳ Submitting audit...', 'loading');
-  
+  showStatus('⏳ Saving to sheet...', 'loading');
+
   try {
-    await fetch(APPS_SCRIPT_URL, {
-      method:  'POST',
-      mode:    'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body:    JSON.stringify(payload)
-    });
-    showStatus('✓ Audit submitted successfully!', 'success');
-    showToast('✓ Audit submitted and saved to sheet!', 'success');
-    setTimeout(() => resetForm(), 2200);
+    const response = await callAppsScript(params);
+    const text = await response.text();
+    console.log('Submit response:', text);
+
+    let data;
+    try { data = JSON.parse(text); } catch(e) { data = { status: 'success' }; }
+
+    if (data.status === 'success') {
+      showStatus('✓ Audit saved to RAW AUDIT DXB!', 'success');
+      showToast('✓ Saved to sheet!', 'success');
+      setTimeout(resetForm, 1200);
+    } else {
+      showStatus('⚠️ ' + (data.message || 'Unknown error'), 'error');
+      showToast('⚠️ Submit failed: ' + (data.message || 'check console'), 'error');
+    }
   } catch (err) {
-    showStatus('✗ Network error — check your connection and try again.', 'error');
-    showToast('✗ Network error: ' + err.message, 'error');
-    console.error('Fetch error:', err);
+    console.error('Submit error:', err);
+    showStatus('⚠️ Network error — check console', 'error');
+    showToast('⚠️ Network error', 'error');
   } finally {
     setSubmitting(false);
   }
 }
 
-// ============== FINISH DAY ==============
-async function finishDayAudits() {
+// ══ FINISH DAY ══
+function finishDayAudits() {
   if (isFinishing || isSubmitting) return;
-  
   const consultant = getPinned('consultant');
   const auditor    = getPinned('auditor');
-  
   if (!consultant || !auditor) {
-    showToast('⚠️ Pin Consultant and Auditor before finishing the day.', 'error');
-    return;
+    showToast('⚠️ Pin Consultant and Auditor before finishing the day.', 'error'); return;
   }
-  
-  const confirmMsg = `Send comprehensive daily report for ${consultant}?\n\nThis will email the consultant, their manager, and you (auditor) with all of today's audit results.`;
-  if (!confirm(confirmMsg)) return;
-  
-  const todayStr = new Date().toLocaleDateString('en-GB');
-  const payload = {
-    action: 'finishDay',
-    consultant: consultant,
-    auditDate: todayStr,
-    auditor: auditor,
-    auditorEmail: 'aqsa@hofmigration.com'
-  };
-  
+  const cObj = CONSULTANTS.find(c => c.name === consultant);
+  pendingFinish = { consultant, auditor, consultantEmail: cObj ? cObj.email : '', managerEmail: cObj ? cObj.manager : '', team: cObj ? cObj.team : '' };
+  showModal('confirm');
+}
+
+function showModal(modalState, extra) {
+  const modal = document.getElementById('modal');
+  const box   = document.getElementById('modalBox');
+  const d     = pendingFinish || {};
+
+  if (modalState === 'confirm') {
+    box.innerHTML =
+      '<div class="modal-icon">📋</div>' +
+      '<div class="modal-title">Send Daily Report?</div>' +
+      '<div class="modal-message">Send the comprehensive daily report for <strong>' + d.consultant + '</strong>?' +
+      (d.team ? '<br><span style="font-size:11px;color:var(--text3)">Team: ' + d.team + '</span>' : '') + '</div>' +
+      '<div class="modal-recipients"><div class="modal-recipients-title">Recipients</div>' +
+      '<div class="modal-recipients-list">' +
+      '<strong>Manager:</strong> ' + (d.managerEmail || '—') + '<br>' +
+      '<strong>Consultant:</strong> ' + (d.consultantEmail || '(not in directory)') + '<br>' +
+      '<strong>Auditor:</strong> ' + AUDITOR_EMAIL +
+      '</div></div>' +
+      '<div class="modal-btn-row">' +
+      '<button class="modal-cancel-btn" onclick="closeModal()">Cancel</button>' +
+      '<button class="modal-close-btn" onclick="executeFinish()">Send Report</button>' +
+      '</div>';
+  } else if (modalState === 'sending') {
+    box.innerHTML =
+      '<div class="big-spinner"></div>' +
+      '<div class="modal-title">Sending Report...</div>' +
+      '<div class="modal-message">Compiling audits for <strong>' + d.consultant + '</strong>. This takes 5–15 seconds.</div>';
+  } else if (modalState === 'success') {
+    box.innerHTML =
+      '<div class="modal-icon">✓</div>' +
+      '<div class="modal-title">Report Sent!</div>' +
+      '<div class="modal-message">Daily report for <strong>' + d.consultant + '</strong> sent successfully.</div>' +
+      '<div class="modal-timestamp">Sent at ' + extra.sentAt + '</div>' +
+      '<div class="modal-result-box">' +
+      '<strong>Audits processed:</strong> ' + extra.auditsProcessed + '<br>' +
+      '<strong>Critical issues:</strong> ' + extra.criticalCount +
+      '</div>' +
+      '<div class="modal-recipients"><div class="modal-recipients-title">Delivered To</div>' +
+      '<div class="modal-recipients-list">' +
+      '<strong>Manager:</strong> ' + (d.managerEmail || '—') + '<br>' +
+      '<strong>Consultant:</strong> ' + (d.consultantEmail || '(not in directory)') + '<br>' +
+      '<strong>Auditor:</strong> ' + AUDITOR_EMAIL +
+      '</div></div>' +
+      '<button class="modal-close-btn" onclick="closeModal()">Done</button>';
+  } else if (modalState === 'finish-error') {
+    box.innerHTML =
+      '<div class="modal-icon" style="background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.4);">⚠️</div>' +
+      '<div class="modal-title">Report Issue</div>' +
+      '<div class="modal-message">' + (extra || 'Something went wrong. Check Apps Script Executions log.') + '</div>' +
+      '<button class="modal-close-btn" onclick="closeModal()">Close</button>';
+  } else if (modalState === 'sendall-confirm') {
+    box.innerHTML =
+      '<div class="modal-icon" style="background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.4);">📤</div>' +
+      '<div class="modal-title">Send All DXB Reports?</div>' +
+      '<div class="modal-message">Sends a personalized daily report to every DXB consultant audited today. Takes 30–90 seconds.</div>' +
+      '<div class="modal-btn-row">' +
+      '<button class="modal-cancel-btn" onclick="closeModal()">Cancel</button>' +
+      '<button class="modal-close-btn" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);" onclick="executeSendAll()">Send All</button>' +
+      '</div>';
+  } else if (modalState === 'sendall-done') {
+    const r = extra;
+    box.innerHTML =
+      '<div class="modal-icon">✓</div>' +
+      '<div class="modal-title">All Reports Sent</div>' +
+      '<div class="modal-result-box">' +
+      '<strong>Total consultants:</strong> ' + (r.totalConsultants || 0) + '<br>' +
+      '<strong>Sent:</strong> ' + (r.sent && r.sent.length ? r.sent.join(', ') : 'None') + '<br>' +
+      '<strong>Skipped (already sent):</strong> ' + (r.skipped && r.skipped.length ? r.skipped.join(', ') : 'None') + '<br>' +
+      (r.failed && r.failed.length ? '<strong style="color:var(--red)">Failed:</strong> ' + r.failed.join(', ') + '<br>' : '') +
+      '</div>' +
+      '<button class="modal-close-btn" onclick="closeModal()">Done</button>';
+  }
+  modal.classList.add('show');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+
+function setFinishing(on) {
+  isFinishing = on;
+  ['finishBtn','topFinishBtn','topSendAllBtn'].forEach(id => {
+    const b = document.getElementById(id);
+    if (b) b.disabled = on;
+  });
+}
+
+async function executeFinish() {
+  if (!pendingFinish) return;
+  showModal('sending');
   setFinishing(true);
-  showStatus('📧 Sending comprehensive daily report...', 'loading');
-  
+
+  const todayStr = new Date().toLocaleDateString('en-GB');
+
   try {
-    await fetch(APPS_SCRIPT_URL, {
-      method:  'POST',
-      mode:    'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body:    JSON.stringify(payload)
+    const response = await callAppsScript({
+      action:       'finishDay',
+      consultant:   pendingFinish.consultant,
+      auditDate:    todayStr,
+      auditor:      pendingFinish.auditor,
+      auditorEmail: AUDITOR_EMAIL
     });
-    showStatus('✓ Daily report sent successfully!', 'success');
-    showToast(`✓ Comprehensive report sent for ${consultant}!`, 'success');
+
+    const text = await response.text();
+    console.log('Finish day response:', text);
+
+    let data;
+    try { data = JSON.parse(text); } catch(e) { data = { status:'error', message:'Bad response: ' + text }; }
+
+    if (data.status === 'success') {
+      showModal('success', {
+        sentAt:          new Date().toLocaleTimeString(),
+        auditsProcessed: data.auditsProcessed || 0,
+        criticalCount:   data.criticalCount   || 0
+      });
+    } else if (data.status === 'already_sent') {
+      showModal('finish-error', 'Report already sent today for ' + pendingFinish.consultant + '. Clear sent keys in Apps Script if you need to resend.');
+    } else if (data.status === 'no_audits') {
+      showModal('finish-error', 'No audits found for ' + pendingFinish.consultant + ' today (' + todayStr + '). Make sure audits are submitted first.');
+    } else {
+      showModal('finish-error', data.message || 'Unknown error. Check Apps Script Executions log.');
+    }
   } catch (err) {
-    showStatus('✗ Network error — check your connection and try again.', 'error');
-    showToast('✗ Network error: ' + err.message, 'error');
-    console.error('Finish day error:', err);
+    console.error('Finish error:', err);
+    showModal('finish-error', 'Network error: ' + err.message);
   } finally {
     setFinishing(false);
   }
 }
 
+// ══ SEND ALL ══
+function sendAllReports() {
+  if (isFinishing || isSubmitting) return;
+  const auditor = getPinned('auditor');
+  if (!auditor) { showToast('⚠️ Pin Auditor before sending all reports.', 'error'); return; }
+  showModal('sendall-confirm');
+}
+
+async function executeSendAll() {
+  const auditor  = getPinned('auditor');
+  const todayStr = new Date().toLocaleDateString('en-GB');
+  setFinishing(true);
+
+  const box = document.getElementById('modalBox');
+  box.innerHTML =
+    '<div class="big-spinner" style="border-top-color:var(--yellow);"></div>' +
+    '<div class="modal-title">Sending All DXB Reports...</div>' +
+    '<div class="modal-message">This takes 30–90 seconds. Please wait.</div>';
+
+  try {
+    const response = await callAppsScript({
+      action:       'sendAllReports',
+      auditDate:    todayStr,
+      auditor,
+      auditorEmail: AUDITOR_EMAIL
+    });
+
+    const text = await response.text();
+    console.log('Send all response:', text);
+
+    let data;
+    try { data = JSON.parse(text); } catch(e) { data = { status:'error', message:text }; }
+
+    showModal('sendall-done', data);
+  } catch (err) {
+    console.error('Send all error:', err);
+    showModal('finish-error', 'Network error: ' + err.message);
+  } finally {
+    setFinishing(false);
+  }
+}
+
+// ══ RESET ══
 function resetForm() {
   ['consultant','leadStage','auditor'].forEach(id => { if (!pins[id].pinned) document.getElementById(id).value = ''; });
-  document.getElementById('caseLink').value = '';
-  document.getElementById('comments').value = '';
-  ATTRIBUTES.forEach(a => { state[a.id] = { applicable: true, marks: {} }; a.errors.forEach(e => state[a.id].marks[e] = null); });
+  document.getElementById('caseLink').value  = '';
+  document.getElementById('comments').value  = '';
+  ATTRIBUTES.forEach(a => {
+    state[a.id] = { applicable:true, marks:{} };
+    a.errors.forEach(e => state[a.id].marks[e] = null);
+  });
   renderAttributes(); updateScore();
   document.getElementById('submitStatus').className = 'submit-status';
-  showToast('↺ Form reset — pinned fields preserved.', 'info');
+  showToast('↺ Form reset. Pinned fields preserved.', 'info');
 }
 
 init();
